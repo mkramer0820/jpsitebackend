@@ -1,0 +1,56 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+
+<a class="btn btn-primary" href="{% url 'orders:add_order' %}" role="button">Add Order</a>
+
+
+    <h1>Orders:</h2>
+    
+ 
+        {% for order in order %}
+        
+            <h3><a href="{{ order.get_absolute_url }}">Buyer Style Number : {{ order }}</a></h3>
+
+            <table class = "table">
+              <thead>
+                <tr>
+                  <th scope='col'> Buyer </th>
+                  <th scope='col'> Jp Style Number </th>
+                  <th scope='col'> Factory </th>
+                    <th></th>
+                </tr>
+              </head>
+              
+              <tbody>
+                <tr>
+                    <td>{{ order.buyer.name }}</td>
+                    <td>{{ order.jp_style_number }} </td>
+                    <td>{{ order.factory }} </td>
+                    <td><a href="{{ order.get_update_url }}" class="btn btn-primary" role="button">Update Order</a></td>
+                </tr>
+              </tbody>
+            </table>
+                    {% for task in order.sampleapprovalbybuyer_set.all %}
+                    <table class="table">
+
+                        <tr><td>Task Type: </td><td>{{ task.type }}</td></tr>
+                       <tr><td>Task Created On: </td><td>{{ task.created }}</td></tr>
+                       <tr><td>Task Due Date</td><td>{{ task.due_date }}</td></tr>
+                       <tr><td>Task Note</td><td>{{ task.ndue_date_note }}</td></tr>
+                        <tr><td>Factory T&A Due Date</td><td>{{ task.factory_TA }}</td></tr>
+                       <tr><td>Factory T&A Notes </td><td>{{ task.nfactory_ta }}</td></tr>
+                       <tr><td>Date Sent to JP </td><td>{{ task.date_sent_to_jp }}</td></tr>
+                        <tr><td> Notes - From sent to JP</td><td>{{ task.ndate_sent_to_jp }}</td></tr>
+                        <tr><td> Buyer Approval Date </td><td>{{ task.buyer_approval_date }}</td></tr>
+                         <tr><td> Order Status Note </td><td>{{ task.buyer_approval_status }}</td></tr>
+                       <tr><td> Status</td><td>{{ task.status }}</td></tr>
+
+
+                    </table>
+
+                    {% endfor %}
+            {% endfor %}
+        {% endblock %}

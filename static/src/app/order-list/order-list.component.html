@@ -1,0 +1,46 @@
+<p>
+  order-list works!
+</p>
+<h1>
+Orders
+</h1>
+<div>
+<table style="width:80%">
+<tr>
+<th>Buyer Name</th>
+<th> Buyer Order Number </th>
+<th>Buyer Style Number</th>
+<th>JP Style Number </th>
+<th> Factory </th>
+<th> Date Shipped to Factory </th>
+  <th>Cost From Factory</th>
+  <th>Buyer's Price</th>
+  <th>Order Type </th>
+  <th> Quantity </th>
+  <th> Sweater Image </th>
+  <th> Sweater Description </th>
+  <th> JP Brand  </th>
+  <th> Fiber Content  </th>
+  <th> Care Instructions  </th>
+  <th> Color  </th>
+</tr>
+<tr *ngFor="let o of orders">
+<td> {{ o.buyer }} </td>
+<td>{{o.customer_order_number}}</td>
+<td> {{ o.buyer_style_number }} </td>
+<td> {{ o.jp_style_number }} </td>
+<td> {{ o.factory}} </td>
+<td> {{ o.factory_ship_date }} </td>
+  <td> {{ o.cost_from_factory }} </td>
+  <td> {{ o.buyers_price }} </td>
+  <td> {{ o.order_type }} </td>
+  <td> {{ o.qty }} </td>
+  <td><img src={{o.sweater_image}} />  </td>
+  <td>{{o.sweater_description}}</td>
+<td>{{o.brand}}</td>
+<td>{{o.fiber_content}}</td>
+<td>{{o.jp_care_instructions}}</td>
+<td>{{o.color}}</td>
+
+</tr>
+</table>

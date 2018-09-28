@@ -1,0 +1,31 @@
+<p>
+  customer-list works!
+</p>
+<h1>
+Customer's
+</h1>
+<div>
+<table style="width:100%">
+<tr>
+<th>Customer Name</th>
+<th>Address 1</th>
+<th>Address 2</th>
+<th>Address 3</th>
+<th>Country</th>
+  <th>Phone #</th>
+  <th>Website</th>
+  <th>Description</th>
+  <th>Active true-false</th>
+</tr>
+<tr *ngFor="let c of customer">
+<td> {{ c.name }} </td>
+<td> {{ c.address1 }} </td>
+<td> {{ c.address2 }} </td>
+<td> {{ c.address3}} </td>
+<td> {{ c.county }} </td>
+  <td> {{ c.phone }} </td>
+  <td> {{ c.website }} </td>
+  <td> {{ c.description }} </td>
+  <td> {{ c.isActive }} </td>
+</tr>
+</table>

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<p>Howdy{% if user.is_authenticated %}  {{ user.username }}</p>
+<p> <a href="{% url 'home:logout' %}">Log Out</a></p>
+
+    {% else %}
+
+    Not logged in
+
+    <a href="{% url 'home:login' %}">Log In</a>
+
+    {% endif %}!
+
+
+
+{% load staticfiles %}
+
+
+<!-- angular sample -->
+{% verbatim %}
+
+
+{% endverbatim %}
+
+
+{% block js %}
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/angular-test.js' %}"></script>
+
+{% endblock js %}
+<div>
+
+
+
+</div>
+
+<button class="apireq" id="apireq">Try It</button>
+
+
+
+{% endblock %}
+
+
+

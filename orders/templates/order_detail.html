@@ -1,0 +1,51 @@
+{% extends 'index.html' %}
+
+{% block content %}
+
+
+
+    <h1>Customer information:</h1>
+        {% load verbose_name %}
+    <a href="{{ order_info.buyer.get_absolute_url }}"> {% get_verbose_field_name order_info "buyer" %} : {{ order_info.buyer }}</a>
+    <a href="{{ order_info.get_update_url }}"> update</a>
+    <p> address1: {{ order_info.buyer.country }} </p>
+
+        <img src="{{ MEDIA_URL }}{{ order_info.sweater_image.url }}"/>
+
+        <p>{% get_verbose_field_name order_info "customer_order_number" %} :   {{ order_info.customer_order_number }}</p>
+        <p>{% get_verbose_field_name order_info "buyer_style_number" %} :  {{ order_info.buyer_style_number }}</p>
+        <p>{% get_verbose_field_name order_info "jp_style_number" %} : {{ order_info.jp_style_number }}</p>
+        <p>{% get_verbose_field_name order_info "factory" %} : {{ order_info.factory }}</p>
+        <p>{% get_verbose_field_name order_info "factory_ship_date" %} :   {{ order_info.factory_ship_date }}</p>
+       <p> {% get_verbose_field_name order_info "cost_from_factory" %} :   {{ order_info.cost_from_factory }}</p>
+       <p> {% get_verbose_field_name order_info "buyers_price" %} :    {{ order_info.buyers_price }}</p>
+        <p> {% get_verbose_field_name order_info "order_type" %} : {{ order_info.order_type }} </p>
+       <p>{% get_verbose_field_name order_info "qty" %} :  {{ order_info.qty }}</p>
+
+       <p> {% get_verbose_field_name order_info "sweater_description" %} : {{ order_info.sweater_description }}</p>
+       <p> {% get_verbose_field_name order_info "brand" %} :   {{ order_info.brand }}</p>
+       <p> {% get_verbose_field_name order_info "fiber_content" %} :   {{ order_info.fiber_content }}</p>
+       <p> {% get_verbose_field_name order_info "jp_care_instructions" %} :    {{ order_info.jp_care_instructions }}</p>
+
+
+        {% for task in order_info.sampleapprovalbybuyer_set.all %}
+
+                    <table class="table">
+
+                        <tr><td>Task Type: </td><td>{{ task.type }}</td></tr>
+                       <tr><td>Task Created On: </td><td>{{ task.created }}</td></tr>
+                       <tr><td>Task Due Date</td><td>{{ task.due_date }}</td></tr>
+                       <tr><td>Task Note</td><td>{{ task.ndue_date_note }}</td></tr>
+                        <tr><td>Factory T&A Due Date</td><td>{{ task.factory_TA }}</td></tr>
+                       <tr><td>Factory T&A Notes </td><td>{{ task.nfactory_ta }}</td></tr>
+                       <tr><td>Date Sent to JP </td><td>{{ task.date_sent_to_jp }}</td></tr>
+                        <tr><td> Notes - From sent to JP</td><td>{{ task.ndate_sent_to_jp }}</td></tr>
+                        <tr><td> Buyer Approval Date </td><td>{{ task.buyer_approval_date }}</td></tr>
+                         <tr><td> Order Status Note </td><td>{{ task.buyer_approval_status }}</td></tr>
+                       <tr><td> Status</td><td>{{ task.status }}</td></tr>
+
+
+                    </table>
+
+        {% endfor %}
+{% endblock %}

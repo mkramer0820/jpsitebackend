@@ -1,0 +1,33 @@
+<p>
+  factory-list works!
+</p>
+<h1>
+Factories
+</h1>
+<div>
+<table style="width:100%">
+<tr>
+<th>Customer Name</th>
+<th> Contact Id</th>
+<th>Address 1</th>
+<th>Address 2</th>
+<th>Address 3</th>
+<th>Country</th>
+  <th>Phone #</th>
+  <th>Website</th>
+  <th>Description</th>
+  <th>Active true-false</th>
+</tr>
+<tr *ngFor="let f of factory">
+<td> {{ f.name }} </td>
+<td>{{f.contact_name}}</td>
+<td> {{ f.address1 }} </td>
+<td> {{ f.address2 }} </td>
+<td> {{ f.address3}} </td>
+<td> {{ f.county }} </td>
+  <td> {{ f.phone }} </td>
+  <td> {{ f.website }} </td>
+  <td> {{ f.description }} </td>
+  <td> {{ f.isActive }} </td>
+</tr>
+</table>
