@@ -25,7 +25,7 @@ from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacLis
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
 from orders.views import OrdersTest
-from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD
+from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -66,6 +66,10 @@ urlpatterns = [
     path('task/group/',
          TodoGroupCreateView.as_view(),
          name='todos-create'
+         ),
+    path('task/group/<int:pk>/',
+         TodoGroupCreateRUDView.as_view(),
+         name='todosgroup-detail'
          ),
     path('factory/',
          FactoryCreateView.as_view(),

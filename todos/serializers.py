@@ -1,12 +1,6 @@
 from rest_framework import serializers
 from todos.models import TodosGroup, Todos
 
-class TodosGroupSerializer(serializers.ModelSerializer):
-
-
-    class Meta:
-        model = TodosGroup
-        fields = '__all__'
 
 
 class TodosSerializer(serializers.ModelSerializer):
@@ -17,4 +11,21 @@ class TodosSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Todos
+        fields = '__all__'
+
+class TodosOnlySerializer(serializers.ModelSerializer):
+
+    todos = serializers.JSONField
+
+    class Meta:
+        model = Todos
+        fields = 'todos'
+
+
+class TodosGroupSerializer(serializers.ModelSerializer):
+
+
+
+    class Meta:
+        model = TodosGroup
         fields = '__all__'

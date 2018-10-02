@@ -9,6 +9,17 @@ class TodoGroupCreateView(generics.ListCreateAPIView):
     queryset = TodosGroup.objects.all()
     serializer_class = TodosGroupSerializer
 
+    def get_todos(self):
+        all = self.queryset
+        todos = [i.todos_set.all().values() for i in all]
+        return print(todos)
+
+class TodoGroupCreateRUDView(generics.RetrieveUpdateDestroyAPIView):
+    """This class defines the create behavior of our rest api."""
+    queryset = TodosGroup.objects.all()
+    serializer_class = TodosGroupSerializer
+
+
 class TodoCreateView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = Todos.objects.all()
