@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from todos.models import TodosGroup, Todos
+from rest_framework import fields
 
 
 
@@ -19,11 +20,11 @@ class TodosOnlySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Todos
-        fields = 'todos'
-
+        fields = ('set_name', 'id')
 
 class TodosGroupSerializer(serializers.ModelSerializer):
 
+    set_names = TodosOnlySerializer(source='todos_set', many=True, read_only=True)
 
 
     class Meta:

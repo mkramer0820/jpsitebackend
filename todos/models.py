@@ -5,7 +5,7 @@ from django.contrib.postgres.fields import JSONField
 
 class TodosGroup(models.Model): #Todolist able name that inherits models.Model
 
-    group_name = models.CharField(max_length=50) # a varchar
+    group_name = models.CharField(max_length=50, unique=True) # a varchar
 
     def __str__(self):
         return self.group_name #name to be shown when called
@@ -13,7 +13,8 @@ class TodosGroup(models.Model): #Todolist able name that inherits models.Model
 class Todos(models.Model): # The Category table name that inherits models.Model
 
     todos_group = models.ForeignKey(TodosGroup, null=True, blank=True, on_delete='CASCADE')
-    todos = JSONField(default="[]")
+    set_name = models.CharField(max_length=50, null=True, blank=True)
+    todos = JSONField(default=dict)
 
 
     class Meta:
