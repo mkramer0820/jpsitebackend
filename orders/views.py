@@ -9,8 +9,8 @@ from rest_framework import status, permissions
 
 from collections import defaultdict
 
-from .serializers import OrderlistSerializer, OrderlistNameSerializer, OrderFileSerializer, OrdersSerializer
-from .serializers import Orders
+from .serializers import OrderlistSerializer, OrderlistNameSerializer, OrderFileSerializer, OrdersSerializer, OrderTaskSerializer
+from .serializers import Orders, OrderTasks
 
 
 class OrderCreateView(generics.ListCreateAPIView):
@@ -25,6 +25,16 @@ class OrderCreateNamesView(generics.ListCreateAPIView):
     queryset = Orders.objects.all()
     serializer_class = OrderlistNameSerializer
 
+class OrderTaskView(generics.ListCreateAPIView):
+    """This class defines the create behavior of our rest api."""
+    queryset = OrderTasks.objects.all()
+    serializer_class = OrderTaskSerializer
+
+
+class OrderTaskRUD(generics.RetrieveUpdateDestroyAPIView):
+
+    queryset = OrderTasks.objects.all()
+    serializer_class = OrderTaskSerializer
 
 
 class OrderFileView(APIView):

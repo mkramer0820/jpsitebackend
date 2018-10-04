@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from orders.models import Orders
+from orders.models import Orders, OrderTasks
 from factory.models import Factory
 from customer.models import Customer
 from customer.serializers import CustomerSerializer
@@ -23,6 +23,17 @@ class OrderlistSerializer(serializers.ModelSerializer):
         fields = '__all__'
         #fields = ('tasks',)
         depth = 2
+
+class OrderTaskSerializer(serializers.ModelSerializer):
+
+
+    tasks = serializers.JSONField
+
+
+    class Meta:
+        model = OrderTasks
+        fields = '__all__'
+
 
 
 

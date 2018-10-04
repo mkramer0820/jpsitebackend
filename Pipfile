@@ -12,6 +12,7 @@ six = "*"
 django-cors = "*"
 django-cors-headers = "*"
 django-webpack-loader = "*"
+django-filter = "*"
 
 [dev-packages]
 

@@ -24,8 +24,8 @@ from orders.views import OrderCreateView, OrderDetailView, OrderCreateNamesView,
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
-from orders.views import OrdersTest
-from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView
+from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD
+from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, TodoGroupFilterView, TodosGroupViewSet
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -67,6 +67,10 @@ urlpatterns = [
          TodoGroupCreateView.as_view(),
          name='todos-create'
          ),
+    path('task/group/filter/',
+         TodosGroupViewSet.as_view({'get': 'list'}),
+         name='todos-group-filter'),
+
     path('task/group/<int:pk>/',
          TodoGroupCreateRUDView.as_view(),
          name='todosgroup-detail'
@@ -109,6 +113,16 @@ urlpatterns = [
     path('orders/imgupload/',
          OrderFileView.as_view(),
          name='order-image'),
+    path('orders/tasks/',
+         OrderTaskView.as_view(),
+         name='list-order-task'
+         ),
+    path('orders/tasks/<int:pk>',
+         OrderTaskRUD.as_view(),
+         name='list-order-task'
+         ),
+
+
     path('inventory/',
          InventoryListCreateView.as_view(),
          name='inventory-create'),

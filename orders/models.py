@@ -4,6 +4,7 @@ from django.utils.text import slugify
 from six import text_type
 from customer.models import Customer
 from factory.models import Factory
+from django.contrib.postgres.fields import JSONField
 
 # Create your models here.
 max_dig = 10000000
@@ -42,6 +43,8 @@ class Orders(models.Model):
     jp_care_instructions = models.TextField(max_length=250, blank=True,
                                             verbose_name='Care Instructions - before translation')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
+    order_tasks = models.ManyToManyField('orders.OrderTasks', blank=True, null=True)
+    tasks = JSONField(blank=True, null=True, default=dict)
 
     def __str__(self):
         return self.buyer_style_number
@@ -73,6 +76,10 @@ class Orders(models.Model):
         names = Customer.objects.values('name').disctinct()
         return names
 
+class OrderTasks(models.Model):
+
+    order = models.ForeignKey(Orders, on_delete='CASCADE', blank=True, null=True)
+    tasks = JSONField(default=dict)
 
 
 
