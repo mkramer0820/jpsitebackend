@@ -79,7 +79,9 @@ class Orders(models.Model):
 class OrderTasks(models.Model):
 
     order = models.ForeignKey(Orders, on_delete='CASCADE', blank=True, null=True)
-    tasks = JSONField(default=dict)
+    set_name = models.CharField(max_length=50, null=True, blank=True)
+    todos_group = models.CharField(max_length=1000, null=True, blank=True)
+    todos = JSONField()
 
 
 
