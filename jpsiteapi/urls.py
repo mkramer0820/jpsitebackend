@@ -24,7 +24,7 @@ from orders.views import OrderCreateView, OrderDetailView, OrderCreateNamesView,
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
-from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD
+from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, TodoGroupFilterView, TodosGroupViewSet
 
 from .settings import MEDIA_URL, MEDIA_ROOT
@@ -107,6 +107,9 @@ urlpatterns = [
     path('orders/',
          OrderCreateView.as_view(),
          name='order-list'),
+    path('orders/filters/',
+         OrderListFilterView.as_view({'get': 'list'}),
+         name='order-list-filter'),
     path('orders/<int:pk>',
          OrderDetailView.as_view(),
          name='order-detail'),

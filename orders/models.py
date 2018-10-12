@@ -44,6 +44,7 @@ class Orders(models.Model):
                                             verbose_name='Care Instructions - before translation')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
     order_tasks = models.ManyToManyField('orders.OrderTasks', blank=True, null=True)
+    due_date = models.DateTimeField(name="Due Date", blank=True);
     tasks = JSONField(blank=True, null=True, default=dict)
 
     def __str__(self):
