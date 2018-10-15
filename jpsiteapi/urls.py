@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.views.static import serve
 
 from customer.views import CustomerCreateView, CustomerDetailView
-from orders.views import OrderCreateView, OrderDetailView, OrderCreateNamesView, OrderFileView
+from orders.views import OrderCreateView, OrderDetailView
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
@@ -101,9 +101,6 @@ urlpatterns = [
     path('myorders/',
          OrdersTest.as_view(),
          name='orders-test'),
-    path('orders/names/',
-         OrderCreateNamesView.as_view(),
-         name='order-names',),
     path('orders/',
          OrderCreateView.as_view(),
          name='order-list'),
@@ -113,9 +110,6 @@ urlpatterns = [
     path('orders/<int:pk>',
          OrderDetailView.as_view(),
          name='order-detail'),
-    path('orders/imgupload/',
-         OrderFileView.as_view(),
-         name='order-image'),
     path('orders/tasks/',
          OrderTaskView.as_view(),
          name='list-order-task'

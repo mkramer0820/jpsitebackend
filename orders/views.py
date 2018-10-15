@@ -11,8 +11,7 @@ from rest_framework import status, permissions
 from rest_framework import pagination
 from collections import defaultdict
 
-from .serializers import OrderlistSerializer, OrderlistNameSerializer,\
-    OrderFileSerializer, OrdersSerializer, OrderTaskSerializer
+from .serializers import OrderlistSerializer, OrderTaskSerializer
 from rest_framework import generics
 
 
@@ -54,11 +53,6 @@ class OrderListFilterView (viewsets.ModelViewSet):
 
 
 
-class OrderCreateNamesView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
-    queryset = Orders.objects.all()
-    serializer_class = OrderlistNameSerializer
-
 class OrderTaskView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = OrderTasks.objects.all()
@@ -69,19 +63,6 @@ class OrderTaskRUD(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = OrderTasks.objects.all()
     serializer_class = OrderTaskSerializer
-
-
-class OrderFileView(APIView):
-
-  parser_classes = (MultiPartParser, FormParser, JSONParser)
-
-  def post(self, request, *args, **kwargs):
-    file_serializer = OrderFileSerializer(data=request.data)
-    if file_serializer.is_valid():
-      file_serializer.save()
-      return Response(file_serializer.data, status=status.HTTP_201_CREATED)
-    else:
-      return Response(file_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 """

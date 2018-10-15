@@ -10,6 +10,7 @@ class TodosSerializer(serializers.ModelSerializer):
     group_name = serializers.ReadOnlyField(source='todos_group.group_name')
 
 
+
     class Meta:
         model = Todos
         fields = '__all__'
