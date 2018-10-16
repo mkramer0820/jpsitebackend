@@ -11,6 +11,12 @@ from rest_framework import status, permissions
 from rest_framework import pagination
 from collections import defaultdict
 
+"""
+filters
+"""
+from orders.filtersets import OrdersFilter
+from django_filters import rest_framework as filters
+
 from .serializers import OrderlistSerializer, OrderTaskSerializer
 from rest_framework import generics
 
@@ -30,11 +36,13 @@ class OrderCreateView(generics.ListCreateAPIView):
     queryset = Orders.objects.all()
     serializer_class = OrderlistSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = OrdersFilter
+
 
 
 class OrderListFilterView (viewsets.ModelViewSet):
 
-    __basic_fields = ('id', 'buyer', 'Due Date')
+    __basic_fields = ('id', 'buyer', 'buyer_name')
     queryset = Orders.objects.all()
     serializer_class = OrderlistSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)

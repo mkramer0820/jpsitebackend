@@ -80,8 +80,11 @@ class OrderTasks(models.Model):
     order = models.ForeignKey(Orders, on_delete='CASCADE', blank=True, null=True)
     set_name = models.CharField(max_length=50, null=True, blank=True)
     todos_group = models.CharField(max_length=1000, null=True, blank=True)
+    active = models.BooleanField(default=True)
+    set_status = models.CharField(max_length=20, blank=True, null=True)
     todos = JSONField()
 
+"In Progress, Complete,"
 
 
 
