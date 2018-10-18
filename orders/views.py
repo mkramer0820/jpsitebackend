@@ -63,7 +63,7 @@ class OrderListFilterView (viewsets.ModelViewSet):
 
 class OrderTaskView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
-    queryset = OrderTasks.objects.complete()
+    queryset = OrderTasks.objects.all()
     serializer_class = OrderTaskSerializer
 
 

@@ -94,6 +94,15 @@ class OpenTasksManager(models.Manager):
     def inactive(self):
         return self.filter(active=False)
 
+    def with_due_date(self):
+
+        all = self.all()
+
+        for set in all:
+            duedate = set.order.due_date
+            return duedate
+
+
 
 class OrderTasks(models.Model):
 
@@ -102,6 +111,7 @@ class OrderTasks(models.Model):
     todos_group = models.CharField(max_length=1000, null=True, blank=True)
     active = models.BooleanField(default=True)
     set_status = models.CharField(max_length=20, blank=True, null=True)
+    todos = JSONField()
     objects = OpenTasksManager()
 
 
