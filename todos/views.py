@@ -44,6 +44,8 @@ class TodosRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = TodosSerializer
 
 
+
+
 class TodosGroupViewSet(viewsets.ModelViewSet):
     __basic_fields = ('id', 'group_name')
     queryset = TodosGroup.objects.all()

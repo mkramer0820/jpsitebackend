@@ -31,3 +31,4 @@ class TodosGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = TodosGroup
         fields = '__all__'
+

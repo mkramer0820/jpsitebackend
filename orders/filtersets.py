@@ -6,11 +6,13 @@ class OrdersFilter(filters.FilterSet):
 
     buyer = filters.CharFilter(field_name='buyer__name')
     due_date = filters.DateFromToRangeFilter(field_name='due_date')
+    buyer_style_number = filters.CharFilter(field_name='buyer_style_number')
+    jp_style_number = filters.CharFilter(field_name='jp_style_number')
 
     class meta:
 
         model = Orders
-        fields = ['id', 'buyer.name', 'buyer__name', 'factory_name', 'due_date']
+        fields = ['id', 'buyer.name', 'buyer__name', 'factory_name', 'due_date', 'buyer_style_number', 'jp_style_number']
 
 """
 class ProductFilter(filters.FilterSet):

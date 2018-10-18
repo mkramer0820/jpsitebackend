@@ -24,8 +24,9 @@ from orders.views import OrderCreateView, OrderDetailView
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
-from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView
-from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, TodoGroupFilterView, TodosGroupViewSet
+from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView
+from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
+    TodoGroupFilterView, TodosGroupViewSet
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -136,6 +137,11 @@ urlpatterns = [
     path('inventory/specs/<int:pk>/',
          SpecDetailView.as_view(),
          name='inventory-detail'),
+
+    path('dashboard/',
+         TaskDashBoardView.as_view(),
+         name='dashboard'
+         )
 
 ]
 

@@ -6,9 +6,12 @@ from customer.models import Customer
 from factory.models import Factory
 from django.contrib.postgres.fields import JSONField
 
+from dateutil import parser
 # Create your models here.
 max_dig = 10000000
 max_len = 64
+
+
 
 
 class Orders(models.Model):
@@ -75,6 +78,23 @@ class Orders(models.Model):
         names = Customer.objects.values('name').disctinct()
         return names
 
+
+
+class OpenTasksManager(models.Manager):
+
+    def incomplete(self):
+        return self.exclude(set_status='Complete')
+
+    def complete(self):
+        return self.filter(set_status='Complete')
+
+    def active(self):
+        return self.filter(active=True)
+
+    def inactive(self):
+        return self.filter(active=False)
+
+
 class OrderTasks(models.Model):
 
     order = models.ForeignKey(Orders, on_delete='CASCADE', blank=True, null=True)
@@ -82,7 +102,9 @@ class OrderTasks(models.Model):
     todos_group = models.CharField(max_length=1000, null=True, blank=True)
     active = models.BooleanField(default=True)
     set_status = models.CharField(max_length=20, blank=True, null=True)
-    todos = JSONField()
+    objects = OpenTasksManager()
+
+
 
 "In Progress, Complete,"
 
