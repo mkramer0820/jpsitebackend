@@ -25,7 +25,7 @@ class Orders(models.Model):
                                                   verbose_name='Jp Style', blank=True)
     slug = models.SlugField(max_length=60, blank=True, unique=True)
     factory = models.ForeignKey("factory.Factory", "Factory", verbose_name='Factory', to_field='id', blank=True, max_length=100)
-    factory_ship_date = models.DateField(verbose_name='Ship to Factory Date', blank=True, null=True)
+    factory_ship_date = models.DateTimeField(verbose_name='Ship to Factory Date', blank=True, null=True)
     cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True)
     buyers_price = models.FloatField(verbose_name='Price Buyer Paid', blank=True)
     order_type = models.CharField(choices=(('DDP', 'DDP'),
@@ -46,7 +46,7 @@ class Orders(models.Model):
     jp_care_instructions = models.TextField(max_length=250, blank=True,
                                             verbose_name='Care Instructions - before translation')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
-    due_date = models.DateTimeField(blank=True);
+    due_date = models.DateTimeField(null=True);
 
     def __str__(self):
         return self.buyer_style_number

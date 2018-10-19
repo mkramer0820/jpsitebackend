@@ -27,6 +27,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()
+    due_date = serializers.DateTimeField()
+    factory_ship_date = serializers.DateTimeField()
 
     class Meta:
         model = Orders
