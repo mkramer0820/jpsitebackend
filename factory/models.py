@@ -40,19 +40,23 @@ class Factory(models.Model):
     address1 = models.CharField("Address1", "address1", max_length=64, blank=True)
     address2 = models.CharField("Address2", "address2", max_length=64, blank=True)
     address3 = models.CharField("Address3", "address3", max_length=64, blank=True)
-    country = models.CharField("country", "country", max_length=64, blank=True)
+    city = models.CharField('City', max_length=40, blank=True, null=True)
     state = models.CharField("state", "state", max_length=64, blank=True)
     zip = models.CharField("Zip", "zip", max_length=10, blank=True)
-    email = models.EmailField(blank=True)
+    country = models.CharField("country", "country", max_length=64, blank=True)
+    email = models.CharField(max_length=40, null=True, blank=True)
     phone = models.CharField(max_length=20, blank=True)
-    website = models.URLField("Website", blank=True, null=True)
+    website = models.CharField("Website", max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     createdOn = models.DateTimeField(auto_now_add=True)
     isActive = models.BooleanField(default=True)
-    slug = models.SlugField("Slug", blank=True, help_text="Slug Field")
+    slug = models.SlugField("Slug", blank=True, help_text="Slug Field", null=True)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ['contact_name', 'name', 'address1']
 
     def save(self, *args, **kwargs):
         slug1 = slugify(self.name)

@@ -1,4 +1,5 @@
 from rest_framework import generics
+from factory.metadata import MyMetaData
 
 from .serializers import FactoryListSerializer
 from .serializers import Factory, FactoryContactSerializer, FactoryContact
@@ -8,6 +9,7 @@ class FactoryCreateView(generics.ListCreateAPIView):
 
     queryset = Factory.objects.all()
     serializer_class = FactoryListSerializer
+    metadata_class = MyMetaData
 
 
 class FactoryDetailView(generics.RetrieveUpdateDestroyAPIView):

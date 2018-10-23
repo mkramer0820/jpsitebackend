@@ -32,7 +32,7 @@ class Orders(models.Model):
                                            ('FOB', 'FOB'),
                                            ('NA', 'NA')),
                                            null=True, verbose_name="Shipment Type", max_length=40)
-    qty = models.FloatField(verbose_name='Order Qty', blank=True)
+    qty = models.FloatField(verbose_name='Order Qty', blank=True, null=True)
     sweater_image = models.ImageField('Item Image', blank=True, upload_to="sweater_images/")
     sweater_description = models.TextField(blank=True, verbose_name="Item Des.",
                                            max_length=200)
