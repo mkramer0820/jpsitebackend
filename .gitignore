@@ -7,7 +7,7 @@
 
 # dependencies
 /static/node_modules
-./migrations/
+/migrations/
 /
 # IDEs and editors
 /.idea
@@ -19,7 +19,7 @@
 *.sublime-workspace
 __pycache__/
 
-
+/migrations/*
 
 # IDE - VSCode
 .vscode/*
