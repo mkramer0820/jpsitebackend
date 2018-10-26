@@ -23,7 +23,6 @@ class Orders(models.Model):
                                        max_length=20, blank=True)
     jp_style_number_test = models.ManyToManyField('inventory.Inventory','+',
                                                   verbose_name='Jp Style', blank=True)
-    slug = models.SlugField(max_length=60, blank=True, unique=True)
     factory = models.ForeignKey("factory.Factory", "Factory", verbose_name='Factory', to_field='id', blank=True, max_length=100)
     factory_ship_date = models.DateTimeField(verbose_name='Ship to Factory Date', blank=True, null=True)
     cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True)
@@ -55,13 +54,6 @@ class Orders(models.Model):
 
     #       return reverse('orders:order_details', kwargs={'pk':self.pk})
 
-    def save(self, *args, **kwargs):
-        slug1 = slugify(self.buyer_style_number)
-        slug2 = slugify(self.buyer.name)
-        slug3 = slugify(self.qty)
-        slugs = slug1 + " " + slug2 + " " + "orderV " + slug3
-        self.slug = slugify(slugs)
-        super(Orders, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('orders:order_details', kwargs={'pk': self.pk})
