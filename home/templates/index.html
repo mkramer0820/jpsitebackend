@@ -2,17 +2,6 @@
 
 
 {% block content %}
-<p>Howdy{% if user.is_authenticated %}  {{ user.username }}</p>
-<p> <a href="{% url 'home:logout' %}">Log Out</a></p>
-
-    {% else %}
-
-    Not logged in
-
-    <a href="{% url 'home:login' %}">Log In</a>
-
-    {% endif %}!
-
 
 
 {% load staticfiles %}
@@ -21,15 +10,37 @@
 <!-- angular sample -->
 {% verbatim %}
 
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Front End</title>
+    <meta content='Angular example app is a base project to start coding with Angular' name='description'>
+    <meta charset="utf-8">
+
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="canonical" href="http://angularexampleapp.com/">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+</head>
+<body>
+  <app-root></app-root>
+</html>
 
 {% endverbatim %}
 
 
 {% block js %}
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/angular-test.js' %}"></script>
+    <script src="{% static 'frontend/main.js' %}"></script>
+    <script src="{% static 'frontend/polyfills.js' %}"></script>
+    <script src="{% static 'frontend/runtime.js' %}"></script>
+    <script src="{% static 'frontend/styles.js' %}"></script>
+    <script src="{% static 'frontend/vendor.js' %}"></script>
 
 {% endblock js %}
 <div>

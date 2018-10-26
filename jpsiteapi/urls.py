@@ -47,7 +47,7 @@ urlpatterns = [
         serve,
         {'document_root': MEDIA_ROOT}),
 
-    url(r'^',
+    url(r'',
         include('home.urls',
                 namespace='home')),
 
@@ -141,7 +141,8 @@ urlpatterns = [
     path('dashboard/',
          TaskDashBoardView.as_view(),
          name='dashboard'
-         )
+         ),
+
 
 ]
 
