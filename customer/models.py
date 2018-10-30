@@ -9,7 +9,6 @@ from django.urls import reverse
 
 class Customer(models.Model):
     name = models.CharField("Company Name", "name", max_length=64, null=True)
-    slug = models.SlugField(max_length=40, unique=True, blank=True)
     address1 = models.CharField("Address1", "address1", max_length=64, blank=True, null=True)
     address2 = models.CharField("Address2", "address2", max_length=64, blank=True, null=True)
     address3 = models.CharField("Address3", "address3", max_length=64, blank=True, null=True)
@@ -27,11 +26,11 @@ class Customer(models.Model):
 
     def __str__(self):
         return "%s" %(self.slug)
-
+    """
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Customer, self).save(*args, **kwargs)
-
+    """
     def get_absolute_url(self):
 
         #return reverse('customer_detail', args=[str(self.pk)])
