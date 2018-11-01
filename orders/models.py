@@ -32,7 +32,7 @@ class Orders(models.Model):
                                            ('NA', 'NA')),
                                            null=True, verbose_name="Shipment Type", max_length=40)
     qty = models.FloatField(verbose_name='Order Qty', blank=True, null=True)
-    sweater_image = models.ImageField('Item Image', blank=True, upload_to="sweater_images/")
+    sweater_image = models.ImageField('Item Image', blank=True, null=True, upload_to="sweater_images/")
     sweater_description = models.TextField(blank=True, verbose_name="Item Des.",
                                            max_length=200)
     brand = models.CharField(choices=(('888', 'eight eight eight'),
@@ -45,7 +45,7 @@ class Orders(models.Model):
     jp_care_instructions = models.TextField(max_length=250, blank=True,
                                             verbose_name='Care Instructions - before translation')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
-    due_date = models.DateTimeField(null=True);
+    due_date = models.DateTimeField(blank=True, null=True)
 
     def __str__(self):
         return self.buyer_style_number

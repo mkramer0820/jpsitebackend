@@ -7,6 +7,9 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
 from rest_framework import status
 from dateutil import parser
+import six
+from rest_framework.fields import ChoiceField
+from rest_framework import serializers
 
 
 class OrderTaskSerializer(serializers.ModelSerializer):
@@ -27,8 +30,9 @@ class OrderlistSerializer(serializers.ModelSerializer):
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()
-    due_date = serializers.DateTimeField()
-    factory_ship_date = serializers.DateTimeField()
+    due_date = serializers.DateTimeField(required=False)
+    factory_ship_date = serializers.DateTimeField(required=False)
+    sweater_image = serializers.ImageField(required=False)
 
     class Meta:
         model = Orders

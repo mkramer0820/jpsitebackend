@@ -19,7 +19,7 @@ from django_filters import rest_framework as filters
 
 from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer
 from rest_framework import generics
-
+from metadata.metadata import MyMetaData
 
 from .serializers import Orders, OrderTasks
 
@@ -37,6 +37,7 @@ class OrderCreateView(generics.ListCreateAPIView):
     serializer_class = OrderlistSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
     filter_class = OrdersFilter
+    metadata_class = MyMetaData
 
 
 

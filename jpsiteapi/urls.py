@@ -108,7 +108,7 @@ urlpatterns = [
     path('orders/filters/',
          OrderListFilterView.as_view({'get': 'list'}),
          name='order-list-filter'),
-    path('orders/<int:pk>',
+    path('orders/<int:pk>/',
          OrderDetailView.as_view(),
          name='order-detail'),
     path('orders/tasks/',
