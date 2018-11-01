@@ -19,7 +19,6 @@
 *.sublime-workspace
 __pycache__/
 
-/migrations/*
 
 # IDE - VSCode
 .vscode/*
@@ -41,3 +40,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+/customer/migrations/
+/factory/migrations/
+/orders/migrations/
+/home/migrations/
+/jet/migrations/
+/todos/migrations/

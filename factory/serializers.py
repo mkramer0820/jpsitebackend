@@ -23,7 +23,7 @@ class FactoryListSerializer(serializers.ModelSerializer):
 
         model = Factory
         #fields = '__all__'
-        exclude = ['slug', 'createdOn']
+        exclude = ['createdOn']
 
     def get_contacts(self, obj):
         qs = obj.contact_name

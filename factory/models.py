@@ -7,21 +7,15 @@ from django.urls import reverse
 
 class FactoryContact(models.Model):
 
+    isActive = models.BooleanField(default=True)
     first_name = models.CharField('Contact First Name', max_length=30, blank=True)
     last_name = models.CharField('Contact Last Name', 'contact_last_name', max_length=30, blank=True)
     phone = models.CharField('Phone Number', 'contact_phone_number', blank=True, max_length=30)
     email = models.EmailField('Contact Email', 'contact_email', max_length=30, blank=True)
-    slug = models.SlugField("Slug", blank=True, help_text="Slug Field")
+    isActive = models.BooleanField(default=True)
 
     def __str__(self):
         return self.first_name
-
-    def save(self, *args, **kwargs):
-        slug1 = slugify(self.first_name)
-        slug2 = slugify(self.id)
-        slugs = slug1+" "+slug2
-        self.slug = slugify(slugs)
-        super(FactoryContact, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
 
@@ -35,6 +29,7 @@ class FactoryContact(models.Model):
 
 class Factory(models.Model):
 
+    isActive = models.BooleanField(default=True)
     name = models.CharField("Company Name", "name", max_length=64)
     contact_name = models.ForeignKey("factory.FactoryContact", max_length=64, blank=True, on_delete='CASCADE', null=True)
     address1 = models.CharField("Address1", "address1", max_length=64, blank=True)
@@ -49,8 +44,6 @@ class Factory(models.Model):
     website = models.CharField("Website", max_length=50, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
     createdOn = models.DateTimeField(auto_now_add=True)
-    isActive = models.BooleanField(default=True)
-    slug = models.SlugField("Slug", blank=True, help_text="Slug Field", null=True)
 
     def __str__(self):
         return self.name
@@ -58,12 +51,6 @@ class Factory(models.Model):
     class Meta:
         ordering = ['contact_name', 'name', 'address1']
 
-    def save(self, *args, **kwargs):
-        slug1 = slugify(self.name)
-        slug2 = slugify(self.id)
-        slugs = slug1+" "+slug2
-        self.slug = slugify(slugs)
-        super(Factory, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
 

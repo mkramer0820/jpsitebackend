@@ -8,6 +8,8 @@ from django.urls import reverse
 
 
 class Customer(models.Model):
+
+    isActive = models.BooleanField(default=True)
     name = models.CharField("Company Name", "name", max_length=64, null=True)
     address1 = models.CharField("Address1", "address1", max_length=64, blank=True, null=True)
     address2 = models.CharField("Address2", "address2", max_length=64, blank=True, null=True)
