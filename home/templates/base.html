@@ -17,21 +17,22 @@
         <link rel="canonical" href="http://angularexampleapp.com/">
         <link rel="icon" type="image/x-icon" href="favicon.ico">
         <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'styles.a9a87df48dfa295d991f.css' %}">
+
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
     
-    <link rel="stylesheet" href="{% static 'styles.a9a87df48dfa295d991f.css'"></head>
+    </head>
     <body>
  {% block content %} {% endblock content %}
-
+<base href="/">
 {% verbatim %}
   <app-root></app-root>
 {% endverbatim %}
             {% block js %}
-    <script src="{% static 'main.615c8aaae51e40416d03.js' %}"></script>
-    <script src="{% static 'polyfills.d3cd4cf2cacf0bd6f1fd.js' %}"></script>
-    <script src="{% static 'runtime.ec2944dd8b20ec099bf3.js' %}"></script>
-    <script src="{% static 'frontend/styles.js' %}"></script>
-    <script src="{% static 'frontend/vendor.js' %}"></script>
+    <script  src="{% static 'main.9dd39bde27c6fd8413fb.js' %}"></script>
+    <script  src="{% static 'polyfills.d3cd4cf2cacf0bd6f1fd.js' %}"></script>
+    <script  src="{% static 'runtime.ec2944dd8b20ec099bf3.js' %}"></script>
+    <script  src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
             {% endblock js %}
 
