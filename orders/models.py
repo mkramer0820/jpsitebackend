@@ -26,8 +26,8 @@ class Orders(models.Model):
                                                   verbose_name='Jp Style', blank=True)
     factory = models.ForeignKey("factory.Factory", "Factory", verbose_name='Factory', to_field='id', blank=True, max_length=100)
     factory_ship_date = models.DateTimeField(verbose_name='Ship to Factory Date', blank=True, null=True)
-    cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True)
-    buyers_price = models.FloatField(verbose_name='Price Buyer Paid', blank=True)
+    cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True, null=True)
+    buyers_price = models.FloatField(verbose_name='Price Buyer Paid', blank=True, null=True)
     order_type = models.CharField(choices=(('DDP', 'DDP'),
                                            ('FOB', 'FOB'),
                                            ('NA', 'NA')),
@@ -35,16 +35,16 @@ class Orders(models.Model):
     qty = models.FloatField(verbose_name='Order Qty', blank=True, null=True)
     sweater_image = models.ImageField('Item Image', blank=True, null=True, upload_to="sweater_images/")
     sweater_description = models.TextField(blank=True, verbose_name="Item Des.",
-                                           max_length=200)
+                                           max_length=200, null=True)
     brand = models.CharField(choices=(('888', 'eight eight eight'),
                                       ('JP', 'JEANNE PIERRE'),
                                       ('AVE', 'AVENUE'),
                                       ('OTHER', 'PRIVATE LABEL')),
-                             verbose_name='Label', blank=True, max_length=40)
+                             verbose_name='Label', blank=True, max_length=40, null=True)
     fiber_content = models.TextField(max_length=200, verbose_name='Fiber Content Des.',
-                                     blank=True)
+                                     blank=True, null=True)
     jp_care_instructions = models.TextField(max_length=250, blank=True,
-                                            verbose_name='Care Instructions - before translation')
+                                            verbose_name='Care Instructions')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
     due_date = models.DateTimeField(blank=True, null=True)
 
