@@ -1,40 +1,39 @@
-<!DOCTYPE>
-{% load staticfiles %}
+
 <!doctype html>
+{% load staticfiles %}
 <html lang="en">
-<head>
-    <title>Front End</title>
-    <meta content='Angular example app is a base project to start coding with Angular' name='description'>
-    <meta charset="utf-8">
-
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="canonical" href="http://angularexampleapp.com/">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-    <script type="text/javascript" src="src/assets/invoice.js"></script>
-
-<link rel="stylesheet" href="{% static 'styles.a9a87df48dfa295d991f.css'"></head>
-<body>
+    <!doctype html>
+    <html lang="en">
+    <head>
+        <title>Front End</title>
+        <meta content='Angular example app is a base project to start coding with Angular' name='description'>
+        <meta charset="utf-8">
     
- {% block content %} {% endblock content %}
-   {% verbatim %}
-  <app-root></app-root>
-  {% endverbatim %}
-  {% block js %}
-
-<script type="text/javascript" src="{% static 'runtime.ec2944dd8b20ec099bf3.js'"></script>
-<script type="text/javascript" src="{% static 'polyfills.d3cd4cf2cacf0bd6f1fd.js'"></script>
-<script type="text/javascript" src="{% static 'main.e924163c84fb52c36a8d.js'"></script></body>
-{% endblock js %}
-
-</html>
-
+        <base href="/">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="canonical" href="http://angularexampleapp.com/">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+    
+    <link rel="stylesheet" href="{% static 'styles.a9a87df48dfa295d991f.css'"></head>
+    <body>
  {% block content %} {% endblock content %}
 
 {% verbatim %}
+  <app-root></app-root>
+{% endverbatim %}
+            {% block js %}
+    <script src="{% static 'main.615c8aaae51e40416d03.js' %}"></script>
+    <script src="{% static 'polyfills.d3cd4cf2cacf0bd6f1fd.js' %}"></script>
+    <script src="{% static 'runtime.ec2944dd8b20ec099bf3.js' %}"></script>
+    <script src="{% static 'frontend/styles.js' %}"></script>
+    <script src="{% static 'frontend/vendor.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
+            {% endblock js %}
+
 </body>
+</html>

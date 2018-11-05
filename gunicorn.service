@@ -1,0 +1,21 @@
+
+#sudo nano /etc/systemd/system/gunicorn.service
+
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=sammy
+Group=www-data
+WorkingDirectory=/home/sammy/myproject
+ExecStart=/home/jpadmin/jpsite/jpsite-env/bin/gunicorn --access-logfile - --workers 3 --bind unix:/home/jpadmin/jpsite/jpsitebackend/jpsiteapi.sock jpsiteapi.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+
+#sudo systemctl start gunicorn
+#sudo systemctl enable gunicorn
+#sudo systemctl status gunicorn
+# ls /home/sammy/myproject

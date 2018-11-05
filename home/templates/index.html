@@ -1,59 +1,13 @@
 {% extends 'base.html' %}
-
-
-{% block content %}
-
-
 {% load staticfiles %}
+<base href="/">
 
-
-<!-- angular sample -->
-{% verbatim %}
-
-<!doctype html>
-<html lang="en">
-<head>
-    <title>Front End</title>
-    <meta content='Angular example app is a base project to start coding with Angular' name='description'>
-    <meta charset="utf-8">
-
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="canonical" href="http://angularexampleapp.com/">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
-
-</head>
-<body>
+ {% block content %}
   <app-root></app-root>
-</html>
-
-{% endverbatim %}
-
-
-{% block js %}
-    <script src="{% static 'frontend/main.js' %}"></script>
-    <script src="{% static 'frontend/polyfills.js' %}"></script>
-    <script src="{% static 'frontend/runtime.js' %}"></script>
-    <script src="{% static 'frontend/styles.js' %}"></script>
-    <script src="{% static 'frontend/vendor.js' %}"></script>
-
+{% endblock content %}
+            {% block js %}
+    <script src="{% static 'main.9dd39bde27c6fd8413fb.js' %}"></script>
+    <script src="{% static 'polyfills.d3cd4cf2cacf0bd6f1fd.js' %}"></script>
+    <script src="{% static 'runtime.ec2944dd8b20ec099bf3.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
 {% endblock js %}
-<div>
-
-
-
-</div>
-
-<button class="apireq" id="apireq">Try It</button>
-
-
-
-{% endblock %}
-
-
-

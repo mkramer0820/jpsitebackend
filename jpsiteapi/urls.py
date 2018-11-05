@@ -35,13 +35,14 @@ from .settings import MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
 
-    url(r'admin/',
-        admin.site.urls,
-        name='admin'),
+
 
     url(r'^jet/',
         include('jet.urls', 'jet')),
     url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    url(r'admin/',
+            admin.site.urls,
+            name='admin'),
 
     url(r'^media/(?P<path>.*)$',
         serve,

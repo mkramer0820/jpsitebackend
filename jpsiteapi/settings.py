@@ -183,9 +183,11 @@ MEDIA_URL = '/media/'
 """for windows"""
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static")
+    os.path.join(BASE_DIR, 'static' ),
 ]
 
+#STATIC_ROOT = 'static/'
+#STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = '/static/'
 #test static
 #STATIC_URL = ''
@@ -198,3 +200,22 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:4200',
 )
 #CORS_ORIGIN_ALLOW_ALL = True
+# web accessible folder
+"""
+STATIC_ROOT = '/home/your_name/www/mealmate/static/'
+
+# URL prefix for static files.
+STATIC_URL = '/static/'
+
+# Additional locations of static files
+STATICFILES_DIRS = (
+    # location of your application, should not be public web accessible 
+    '/home/your_name/website/mealmate/static',
+)
+
+# List of finder classes that know how to find static files in
+# various locations.
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+)"""
