@@ -23,9 +23,11 @@
     
     </head>
     <body>
+    <base href="/">
  {% block content %} {% endblock content %}
-<base href="/">
+
 {% verbatim %}
+
   <app-root></app-root>
 {% endverbatim %}
             {% block js %}
@@ -35,6 +37,5 @@
     <script  src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
             {% endblock js %}
-
 </body>
 </html>
