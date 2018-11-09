@@ -2,6 +2,7 @@ from rest_framework import serializers
 from orders.models import Orders, OrderTasks
 from factory.models import Factory
 from customer.models import Customer
+from factory.serializers import FactoryListSerializer
 from customer.serializers import CustomerSerializer
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.response import Response
@@ -33,6 +34,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
+    factory_set = serializers.SerializerMethodField()
+    customer_set = serializers.SerializerMethodField()
 
     class Meta:
         model = Orders
@@ -44,6 +47,15 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
         qs = obj.ordertasks_set.all()
         return OrderTaskSerializer(qs, many=True, read_only=True).data
+
+
+    def get_factory_set(self, obj):
+        qs = Factory.objects.filter(id=obj.factory.id).values()
+        return qs
+
+    def get_customer_set(self, obj):
+        qs = Customer.objects.filter(id=obj.buyer.id).values()
+        return qs
 
 class TaskDashBoardSerializer(serializers.ModelSerializer):
 
