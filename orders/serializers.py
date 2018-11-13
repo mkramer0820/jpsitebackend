@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from orders.models import Orders, OrderTasks
+from orders.models import Orders, OrderTasks, OrderExpense
 from factory.models import Factory
 from customer.models import Customer
 from factory.serializers import FactoryListSerializer
@@ -12,6 +12,15 @@ import six
 from rest_framework.fields import ChoiceField
 from rest_framework import serializers
 
+
+
+class OrderExpenseSerializer(serializers.ModelSerializer):
+
+    expenseItems = serializers.JSONField
+
+    class Meta:
+        model = OrderExpense
+        fields = '__all__'
 
 class OrderTaskSerializer(serializers.ModelSerializer):
 
@@ -36,6 +45,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
     sweater_image = serializers.ImageField(required=False)
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
+    expenseItems = serializers.JSONField
 
     class Meta:
         model = Orders

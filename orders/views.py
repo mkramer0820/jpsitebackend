@@ -74,6 +74,7 @@ class OrderTaskRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderTaskSerializer
 
 
+
 class TaskDashBoardView(generics.ListAPIView):
 
     serializer_class = TaskDashBoardSerializer
