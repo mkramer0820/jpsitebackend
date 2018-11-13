@@ -10,7 +10,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import status, permissions
 from rest_framework import pagination
 from collections import defaultdict
-
+from orders.serializers import OrderExpense, OrderExpenseSerializer
 """
 filters
 """
@@ -30,6 +30,17 @@ class StandardResultsSetPagination(pagination.PageNumberPagination):
 
     def get_paginated_response(self, data):
        return Response(data)
+
+
+class OrderExpenseCreateView(generics.ListCreateAPIView):
+
+    queryset = OrderExpense.objects.all()
+    serializer_class = OrderExpenseSerializer
+
+class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderExpense.objects.all()
+    serializer_class = OrderExpenseSerializer
+
 
 class OrderCreateView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""

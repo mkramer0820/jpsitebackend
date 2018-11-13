@@ -16,15 +16,16 @@ max_len = 64
 
 class Orders(models.Model):
     isActive = models.BooleanField(default=True)
-    buyer = models.ForeignKey('customer.Customer', "Buyer", verbose_name='Buyer', to_field='id', blank=True)
-    customer_order_number = models.CharField("Buyer Order Number", max_length=100, blank=True)
+    buyer = models.ForeignKey('customer.Customer', "Buyer", blank=True, null=True, to_field='id', default=None)
+    customer_order_number = models.CharField("Buyer Order Number", max_length=100, blank=True, null=True)
     buyer_style_number = models.CharField("Buyer Style Number",
                                           max_length=100, blank=True)
     jp_style_number = models.CharField("Jeanne Pierre Style Number",
                                        max_length=20, blank=True)
     jp_style_number_test = models.ManyToManyField('inventory.Inventory','+',
                                                   verbose_name='Jp Style', blank=True)
-    factory = models.ForeignKey("factory.Factory", "Factory", verbose_name='Factory', to_field='id', blank=True, max_length=100)
+    factory = models.ForeignKey("factory.Factory", "Factory", blank=True, null=True, to_field='id',
+                                default=None, max_length=100)
     factory_ship_date = models.DateTimeField(verbose_name='Ship to Factory Date', blank=True, null=True)
     cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True, null=True)
     buyers_price = models.FloatField(verbose_name='Price Buyer Paid', blank=True, null=True)
@@ -47,8 +48,8 @@ class Orders(models.Model):
                                             verbose_name='Care Instructions')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
     due_date = models.DateTimeField(blank=True, null=True)
-    totalExpense = models.FloatField(blank=True, null=True)
-    expenseItems = JSONField(default=[dict], blank=True)
+    #totalExpense = models.FloatField(blank=True, null=True)
+    #expenseItems = JSONField(default=[dict], blank=True)
 
 
     def __str__(self):
@@ -77,7 +78,7 @@ class Orders(models.Model):
 
 class OrderExpense(models.Model):
 
-    order = models.ForeignKey(Orders,  on_delete='CASCADE')
+    order = models.OneToOneField(Orders,  on_delete='CASCADE', primary_key=True)
     totalExpense = models.FloatField(blank=True, null=True)
     expenseItems = JSONField()
 

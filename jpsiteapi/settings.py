@@ -12,14 +12,19 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import datetime
+from .config import config
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 's#vd#lq3i*z+u=11$%tvl_ppsbsn7s677n-zq+m9zee7znbwja'
+# SECRET_KEY = 's#vd#lq3i*z+u=11$%tvl_ppsbsn7s677n-zq+m9zee7znbwja'
+
+SECRET_KEY = config['key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -98,8 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jpsite',
-        'USER': 'jpadmin',
-        'PASSWORD': '@C05m0dog!2@',
+        'USER': config['dbUserName'],
+        'PASSWORD': config['dbPass'],
         'HOST': 'localhost',
         'PORT': '5432',
     }

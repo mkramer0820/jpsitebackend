@@ -18,15 +18,18 @@ from django.conf.urls import url, include
 from django.urls import path
 from django.conf.urls.static import static
 from django.views.static import serve
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
+
 
 from customer.views import CustomerCreateView, CustomerDetailView
-from orders.views import OrderCreateView, OrderDetailView
+from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
-from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
-from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, SpecDetailView, InventoryListView
+from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, \
+                            SpecDetailView, InventoryListView
+
 from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
-    TodoGroupFilterView, TodosGroupViewSet
+                        TodoGroupFilterView, TodosGroupViewSet
 
 from .settings import MEDIA_URL, MEDIA_ROOT
 
@@ -120,6 +123,13 @@ urlpatterns = [
          OrderTaskRUD.as_view(),
          name='list-order-task'
          ),
+
+    path('order-expense/',
+         OrderExpenseCreateView.as_view(),
+         name='order-expense'),
+    path('order-expense/<int:pk>/',
+         OrderExpenseRUD.as_view(),
+         name='order-epxense-rud'),
 
 
     path('inventory/',

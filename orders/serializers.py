@@ -35,17 +35,17 @@ class OrderTaskSerializer(serializers.ModelSerializer):
 class OrderlistSerializer(serializers.ModelSerializer):
 
 
-    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all())
-    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all())
+    #buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), required=False)
+    #factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), required=False)
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
-    factory_set = serializers.SerializerMethodField()
-    customer_set = serializers.SerializerMethodField()
-    expenseItems = serializers.JSONField
+    #factory_set = serializers.SerializerMethodField()
+    #customer_set = serializers.SerializerMethodField()
+    orderExpense = serializers.SerializerMethodField()
 
     class Meta:
         model = Orders
@@ -57,6 +57,11 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
         qs = obj.ordertasks_set.all()
         return OrderTaskSerializer(qs, many=True, read_only=True).data
+
+    def get_orderExpense(self, obj):
+        qs = OrderExpense.objects.filter(order=obj.id)
+        qs = OrderExpenseSerializer(qs, many=True, read_only=True).data
+        return qs
 
 
     def get_factory_set(self, obj):
