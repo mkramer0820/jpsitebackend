@@ -52,4 +52,5 @@ Thumbs.db
 /orders/__pycache__
 todos/__pycache__
 
-#/jpsiteapi/settings.py
+/jpsiteapi/settings.py
+/static
