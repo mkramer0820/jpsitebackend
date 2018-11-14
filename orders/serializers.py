@@ -35,8 +35,8 @@ class OrderTaskSerializer(serializers.ModelSerializer):
 class OrderlistSerializer(serializers.ModelSerializer):
 
 
-    #buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), required=False)
-    #factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), required=False)
+    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), required=False, allow_null=True)
+    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), required=False, allow_null=True)
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()

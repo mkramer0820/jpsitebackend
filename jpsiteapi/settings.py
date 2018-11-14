@@ -103,7 +103,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jpsite',
-        'USER': config['dbUserName'],
+        #'USER': config['dbUserName'],
+        'USER': 'mkram',
         'PASSWORD': config['dbPass'],
         'HOST': 'localhost',
         'PORT': '5432',

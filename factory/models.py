@@ -32,7 +32,7 @@ class Factory(models.Model):
     isActive = models.BooleanField(default=True)
     name = models.CharField("Company Name", "name", max_length=64)
     contact_name = models.ForeignKey("factory.FactoryContact", max_length=64, on_delete='CASCADE',
-                                     null=True, blank=True)
+                                     null=True, blank=True, default=None)
     address1 = models.CharField("Address1", "address1", max_length=64, blank=True)
     address2 = models.CharField("Address2", "address2", max_length=64, blank=True)
     address3 = models.CharField("Address3", "address3", max_length=64, blank=True)

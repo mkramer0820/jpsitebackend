@@ -48,10 +48,7 @@ class Orders(models.Model):
                                             verbose_name='Care Instructions')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
     due_date = models.DateTimeField(blank=True, null=True)
-    #totalExpense = models.FloatField(blank=True, null=True)
-    #expenseItems = JSONField(default=[dict], blank=True)
-
-
+ 
     def __str__(self):
         return self.buyer_style_number
 

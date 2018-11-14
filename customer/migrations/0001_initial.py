@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('address3', models.CharField(blank=True, max_length=64, null=True, verbose_name='Address3')),
                 ('city', models.CharField(blank=True, max_length=64, null=True, verbose_name='City')),
                 ('state', models.CharField(blank=True, max_length=64, null=True, verbose_name='State-Province')),
-                ('zip', models.CharField(blank=True, max_length=10, null=True, verbose_name='Zip or Postal Code')),
+                ('zipcode', models.CharField(blank=True, max_length=10, null=True, verbose_name='Zip or Postal Code')),
                 ('country', models.CharField(blank=True, max_length=64, null=True, verbose_name='Country')),
                 ('email', models.EmailField(blank=True, max_length=64, null=True, verbose_name='Email')),
                 ('phone', models.CharField(blank=True, max_length=15, null=True, verbose_name='Phone Number')),

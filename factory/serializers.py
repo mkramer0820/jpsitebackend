@@ -16,7 +16,7 @@ class FactoryListSerializer(serializers.ModelSerializer):
 
     contacts = serializers.SerializerMethodField()
     #contact_name = serializers.ManyRelatedField(source='FactoryContact')
-    contact_name = serializers.PrimaryKeyRelatedField(queryset=FactoryContact.objects.all(), read_only=False)
+    contact_name = serializers.PrimaryKeyRelatedField(queryset=FactoryContact.objects.all(), read_only=False, required=False, allow_null=True)
 
 
     class Meta:
