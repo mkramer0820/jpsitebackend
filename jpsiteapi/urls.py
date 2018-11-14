@@ -5,13 +5,13 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  path('api/', views.home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
+    2. Add a URL to urlpatterns:  path('api/', Home.as_view(), name='home')
 Including another URLconf
     1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+    2. Add a URL to urlpatterns:  path('api/blog/', include('blog.urls'))
 """
 from django.contrib import admin
 from django.conf.urls import url, include
@@ -55,101 +55,101 @@ urlpatterns = [
         include('home.urls',
                 namespace='home')),
 
-    url(r'^api-token-auth/', obtain_jwt_token),
-    url(r'^api-token-refresh/', refresh_jwt_token),
-    url(r'^api-token-verify/', verify_jwt_token),
+    url(r'api/api-token-auth/', obtain_jwt_token),
+    url(r'api/api-token-refresh/', refresh_jwt_token),
+    url(r'api/api-token-verify/', verify_jwt_token),
 
 
-    path('task/',
+    path('api/task/',
          TodoCreateView.as_view(),
          name='todos'
          ),
-    path('task/<int:pk>/',
+    path('api/task/<int:pk>/',
          TodosRUD.as_view(),
          name='todos-RUD'
          ),
-    path('task/group/',
+    path('api/task/group/',
          TodoGroupCreateView.as_view(),
          name='todos-create'
          ),
-    path('task/group/filter/',
+    path('api/task/group/filter/',
          TodosGroupViewSet.as_view({'get': 'list'}),
          name='todos-group-filter'),
 
-    path('task/group/<int:pk>/',
+    path('api/task/group/<int:pk>/',
          TodoGroupCreateRUDView.as_view(),
          name='todosgroup-detail'
          ),
-    path('factory/',
+    path('api/factory/',
          FactoryCreateView.as_view(),
          name='factory-list'),
-    path('factory/<int:pk>/',
+    path('api/factory/<int:pk>/',
          FactoryDetailView.as_view(),
          name='factory-detail'),
-    path('factory/contacts/',
+    path('api/factory/contacts/',
          FactoryContacListtCreateView.as_view(),
          name='factory-contact-list'
          ),
-    path('factory/contacts/<int:id>',
+    path('api/factory/contacts/<int:id>',
          FactoryContactDetailView.as_view(),
          name='factory-contact-list'
          ),
 
 
-    path('customer/',
+    path('api/customer/',
          CustomerCreateView.as_view(),
          name='customer-list'),
-    path('customer/<int:pk>/',
+    path('api/customer/<int:pk>/',
          CustomerDetailView.as_view(),
          name='customer-detail'),
 
-    path('myorders/',
+    path('api/myorders/',
          OrdersTest.as_view(),
          name='orders-test'),
-    path('orders/',
+    path('api/orders/',
          OrderCreateView.as_view(),
          name='order-list'),
-    path('orders/filters/',
+    path('api/orders/filters/',
          OrderListFilterView.as_view({'get': 'list'}),
          name='order-list-filter'),
-    path('orders/<int:pk>/',
+    path('api/orders/<int:pk>/',
          OrderDetailView.as_view(),
          name='order-detail'),
-    path('orders/tasks/',
+    path('api/orders/tasks/',
          OrderTaskView.as_view(),
          name='list-order-task'
          ),
-    path('orders/tasks/<int:pk>',
+    path('api/orders/tasks/<int:pk>',
          OrderTaskRUD.as_view(),
          name='list-order-task'
          ),
 
-    path('order-expense/',
+    path('api/order-expense/',
          OrderExpenseCreateView.as_view(),
          name='order-expense'),
-    path('order-expense/<int:pk>/',
+    path('api/order-expense/<int:pk>/',
          OrderExpenseRUD.as_view(),
          name='order-epxense-rud'),
 
 
-    path('inventory/',
+    path('api/inventory/',
          InventoryListCreateView.as_view(),
          name='inventory-create'),
-    path('inventorylist/',
+    path('api/inventorylist/',
          InventoryListView.as_view(),
          name='inventory-list'),
-    path('inventory/<int:pk>/',
+    path('api/inventory/<int:pk>/',
          InventoryDetailView.as_view(),
          name='inventory-detail'),
 
-    path('inventory/specs/',
+    path('api/inventory/specs/',
          SpecListCreateView.as_view(),
          name='spec-list'),
-    path('inventory/specs/<int:pk>/',
+    path('api/inventory/specs/<int:pk>/',
          SpecDetailView.as_view(),
          name='inventory-detail'),
 
-    path('dashboard/',
+    path('api/dashboard/',
          TaskDashBoardView.as_view(),
          name='dashboard'
          ),
@@ -194,10 +194,10 @@ def current_date(request):
 
 
 
-    path('task/',
+    path('api/task/',
          TaskCreateView.as_view(),
          name='task-list'),
-    path('task/<int:pk>/',
+    path('api/task/<int:pk>/',
          TaskDetailView.as_view(),
          name='task-detail'),
 

@@ -8,6 +8,7 @@ class OrdersFilter(filters.FilterSet):
     due_date = filters.DateFromToRangeFilter(field_name='due_date')
     buyer_style_number = filters.CharFilter(field_name='buyer_style_number')
     jp_style_number = filters.CharFilter(field_name='jp_style_number')
+    isActive = filters.BooleanFilter(field_name="isActive")
 
     class meta:
 
