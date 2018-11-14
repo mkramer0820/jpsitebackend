@@ -47,4 +47,9 @@ Thumbs.db
 /home/migrations/
 /jet/migrations/
 /todos/migrations/
-/jpsiteapi/settings.py
+/customer/__pycache__
+/factory/__pycache__
+/orders/__pycache__
+todos/__pycache__
+
+#/jpsiteapi/settings.py

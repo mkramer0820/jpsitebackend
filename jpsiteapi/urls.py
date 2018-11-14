@@ -29,9 +29,9 @@ from inventory.views import InventoryListCreateView, SpecListCreateView,Inventor
 
 from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
-                        TodoGroupFilterView, TodosGroupViewSet
+    TodosGroupViewSet
 
-from .settings import MEDIA_URL, MEDIA_ROOT
+from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
 
 
