@@ -43,8 +43,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
-    #factory_set = serializers.SerializerMethodField()
-    #customer_set = serializers.SerializerMethodField()
+    factory_set = serializers.SerializerMethodField()
+    customer_set = serializers.SerializerMethodField()
     orderExpense = serializers.SerializerMethodField()
 
     class Meta:
@@ -65,12 +65,19 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
 
     def get_factory_set(self, obj):
-        qs = Factory.objects.filter(id=obj.factory.id).values()
-        return qs
-
+        try:
+            qs = Factory.objects.filter(id=obj.factory.id).values()
+            return qs
+        except AttributeError:
+            qs = ''
+            return qs
     def get_customer_set(self, obj):
-        qs = Customer.objects.filter(id=obj.buyer.id).values()
-        return qs
+        try:
+            qs = Customer.objects.filter(id=obj.buyer.id).values()
+            return qs
+        except AttributeError:
+            qs = ''
+            return qs
 
 class TaskDashBoardSerializer(serializers.ModelSerializer):
 
