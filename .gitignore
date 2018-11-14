@@ -55,5 +55,5 @@ todos/__pycache__
 /jpsiteapi/settings.py
 /static
 /jpsiteapi/config.py
-/gunicorn.service
-/etc-nginx-sites-available-jpsiteapi
+gunicorn.service
+etc-nginx-sites-available-jpsiteapi
