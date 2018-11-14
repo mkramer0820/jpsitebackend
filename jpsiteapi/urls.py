@@ -31,7 +31,7 @@ from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilte
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
     TodosGroupViewSet
 
-from settings import MEDIA_URL, MEDIA_ROOT
+from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
 
 

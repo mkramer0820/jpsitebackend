@@ -51,6 +51,9 @@ Thumbs.db
 /factory/__pycache__
 /orders/__pycache__
 todos/__pycache__
-
+/settings.py
 /jpsiteapi/settings.py
 /static
+/jpsiteapi/config.py
+/gunicorn.service
+/etc-nginx-sites-available-jpsiteapi
