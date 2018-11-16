@@ -22,7 +22,7 @@ from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify
 
 
 from customer.views import CustomerCreateView, CustomerDetailView
-from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD
+from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD, OrdersDestroyView
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, \
                             SpecDetailView, InventoryListView
@@ -112,6 +112,8 @@ urlpatterns = [
     path('api/orders/paginator/',
          OrderListFilterView.as_view({'get': 'list'}),
          name='order-list-filter'),
+    path('api/orders/delete/<int:pk>/',
+         OrdersDestroyView.as_view(), name='delete-orders'),
     path('api/orders/<int:pk>/',
          OrderDetailView.as_view(),
          name='order-detail'),

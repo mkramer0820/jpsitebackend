@@ -75,7 +75,8 @@ class Orders(models.Model):
 
 class OrderExpense(models.Model):
 
-    order = models.OneToOneField(Orders,  on_delete='CASCADE', primary_key=True)
+    order = models.ForeignKey(Orders, on_delete='CASCADE'
+                              )
     totalExpense = models.FloatField(blank=True, null=True)
     expenseItems = JSONField()
 

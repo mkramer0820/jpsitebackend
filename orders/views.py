@@ -17,7 +17,7 @@ filters
 from orders.filtersets import OrdersFilter
 from django_filters import rest_framework as filters
 
-from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer
+from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer
 from rest_framework import generics
 from metadata.metadata import MyMetaData
 
@@ -59,6 +59,11 @@ class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderExpenseSerializer
     metadata_class = MyMetaData
 
+
+class OrdersDestroyView(generics.DestroyAPIView):
+
+    queryset = Orders.objects.all()
+    serializer_class = OrderDeleteSerializer
 
 class OrderCreateView(generics.ListCreateAPIView):
    #This class defines the create behavior of our rest api.

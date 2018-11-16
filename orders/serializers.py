@@ -12,7 +12,12 @@ import six
 from rest_framework.fields import ChoiceField
 from rest_framework import serializers
 
+class OrderDeleteSerializer(serializers.ModelSerializer):
 
+    class meta:
+
+        model = Orders
+        fields = '__all__'
 
 class OrderExpenseSerializer(serializers.ModelSerializer):
 
@@ -45,7 +50,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
     sweater_image = serializers.ImageField(required=False)
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
-    orderExpense = serializers.SerializerMethodField()
+    #orderExpense = serializers.SerializerMethodField()
 
     class Meta:
         model = Orders
@@ -57,11 +62,11 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
         qs = obj.ordertasks_set.all()
         return OrderTaskSerializer(qs, many=True, read_only=True).data
-
+    """
     def get_orderExpense(self, obj):
         qs = OrderExpense.objects.filter(order=obj.id)
         qs = OrderExpenseSerializer(qs, many=True, read_only=True).data
-        return qs
+        return qs"""
 
 
     def get_factory_set(self, obj):
