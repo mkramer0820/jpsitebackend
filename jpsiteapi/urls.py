@@ -109,7 +109,7 @@ urlpatterns = [
     path('api/orders/',
          OrderCreateView.as_view(),
          name='order-list'),
-    path('api/orders/filters/',
+    path('api/orders/paginator/',
          OrderListFilterView.as_view({'get': 'list'}),
          name='order-list-filter'),
     path('api/orders/<int:pk>/',

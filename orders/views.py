@@ -24,13 +24,30 @@ from metadata.metadata import MyMetaData
 from .serializers import Orders, OrderTasks
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
-    page_size = 1
+    page_size = 5
     page_size_query_param = 'page_size'
     max_page_size = 100
 
     def get_paginated_response(self, data):
-       return Response(data)
+        return Response({
 
+            'next': self.get_next_link(),
+            'previous': self.get_previous_link(),
+
+            'count': self.page.paginator.count,
+            'total_pages': self.page.paginator.num_pages,
+            'angular_current_page': self.page.number - 1,
+            'page': self.page.number,
+
+            'results': data
+        })
+
+
+"""
+http://127.0.0.1:8000/api/orders/paginator/?ordering=id&page=1&page_size=2
+http://127.0.0.1:8000/api/orders/paginator/?ordering=id&buyer=&due_date_after=&due_date_before=2018-12-01&buyer_style_number=&jp_style_number=&isActive=
+http://127.0.0.1:8000/api/orders/paginator/?buyer=&buyer_style_number=&due_date_after=&due_date_before=&isActive=&jp_style_number=&ordering=id&page=&page_size=
+"""
 
 class OrderExpenseCreateView(generics.ListCreateAPIView):
 
@@ -40,10 +57,11 @@ class OrderExpenseCreateView(generics.ListCreateAPIView):
 class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderExpense.objects.all()
     serializer_class = OrderExpenseSerializer
+    metadata_class = MyMetaData
 
 
 class OrderCreateView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
+   #This class defines the create behavior of our rest api.
     queryset = Orders.objects.all()
     serializer_class = OrderlistSerializer
     filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
@@ -51,7 +69,16 @@ class OrderCreateView(generics.ListCreateAPIView):
     metadata_class = MyMetaData
 
 
+class OrderListFilterView(viewsets.ModelViewSet):
+   #This class defines the create behavior of our rest api.
+    queryset = Orders.objects.all()
+    serializer_class = OrderlistSerializer
+    filter_backends = (filters.DjangoFilterBackend, SearchFilter, OrderingFilter)
+    filter_class = OrdersFilter
+    metadata_class = MyMetaData
+    pagination_class = StandardResultsSetPagination
 
+"""
 class OrderListFilterView (viewsets.ModelViewSet):
 
     __basic_fields = ('id', 'buyer', 'buyer_name')
@@ -62,7 +89,7 @@ class OrderListFilterView (viewsets.ModelViewSet):
     search_fields = __basic_fields
     pagination_class = StandardResultsSetPagination
 
-    """
+
     127.0.0.1/orders/filter/ shows first 1 & 2
     127.0.0.1/orders/filter/?page=1 shows 3 & 4
     http://127.0.0.1:8000/orders/filters/?ordering=id?page=1 does page and ordering

@@ -38,7 +38,7 @@ class Factory(models.Model):
     address3 = models.CharField("Address3", "address3", max_length=64, blank=True)
     city = models.CharField('City', max_length=40, blank=True, null=True)
     state = models.CharField("state", "state", max_length=64, blank=True)
-    zip = models.CharField("Zip", "zip", max_length=10, blank=True)
+    zipcode = models.CharField("Zip or Postal Code", max_length=10, blank=True, null=True)
     country = models.CharField("country", "country", max_length=64, blank=True)
     email = models.CharField(max_length=40, null=True, blank=True)
     phone = models.CharField(max_length=20, blank=True)

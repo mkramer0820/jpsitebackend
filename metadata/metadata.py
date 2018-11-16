@@ -3,7 +3,7 @@ from django.utils.encoding import force_text
 from rest_framework.views import APIView
 from rest_framework.metadata import SimpleMetadata
 from rest_framework.relations import ManyRelatedField, RelatedField, PrimaryKeyRelatedField
-from rest_framework.fields import CharField
+from rest_framework.fields import ChoiceField, FloatField, DateTimeField, CharField, ImageField, DateField
 import six
 from rest_framework.fields import ChoiceField
 
@@ -29,7 +29,37 @@ class MyMetaData(SimpleMetadata):
                 for choice_value, choice_name in field.get_choices().items()
             ]
             field_info['type'] = 'choice'
+
+        if isinstance(field, FloatField):
+
+            field_info['validators'] = 'number'
+            field_info['formType'] = 'number'
+
+        if isinstance(field, CharField):
+            field_info['formType'] = 'text'
+
+        if isinstance(field, CharField) and field.field_name == 'zipcode':
+
+            field_info['customType'] = 'zip'
+
+        if isinstance(field, CharField) and field.field_name == 'phone':
+
+            field_info['formType'] = 'tel'
+            field_info['telOption'] = ['us', 'international']
+
+        if isinstance(field, ImageField):
+
+            field_info['formType'] = 'img'
+
+        if isinstance(field, (DateField, DateTimeField)):
+
+            field_info['formType'] = 'datePicker'
+
+
+
+
         return field_info
+
 
 
 class ChoiceDisplayField(ChoiceField):
