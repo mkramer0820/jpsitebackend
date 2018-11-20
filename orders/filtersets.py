@@ -15,6 +15,12 @@ class OrdersFilter(filters.FilterSet):
         model = Orders
         fields = ['id', 'buyer.name', 'buyer__name', 'factory_name', 'due_date', 'buyer_style_number', 'jp_style_number']
 
+
+class OrderTaskFilter(filters.FilterSet):
+
+    complete = filters.CharFilter(field_name = 'set_status')
+
+
 """
 class ProductFilter(filters.FilterSet):
     min_price = filters.NumberFilter(field_name="price", lookup_expr='gte')

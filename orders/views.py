@@ -14,7 +14,7 @@ from orders.serializers import OrderExpense, OrderExpenseSerializer
 """
 filters
 """
-from orders.filtersets import OrdersFilter
+from orders.filtersets import OrdersFilter, OrderTaskFilter
 from django_filters import rest_framework as filters
 
 from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer
@@ -109,6 +109,7 @@ class OrderTaskView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = OrderTasks.objects.all()
     serializer_class = OrderTaskSerializer
+
 
 
 class OrderTaskRUD(generics.RetrieveUpdateDestroyAPIView):

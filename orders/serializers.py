@@ -51,6 +51,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
     orderExpense = serializers.SerializerMethodField()
+    completeTasks = serializers.SerializerMethodField()
+    incompleteTasks = serializers.SerializerMethodField()
 
     class Meta:
         model = Orders
@@ -84,6 +86,21 @@ class OrderlistSerializer(serializers.ModelSerializer):
             return qs
         except AttributeError:
             qs = ''
+            return qs
+    def get_completeTasks(self, obj):
+        try:
+            qs = obj.ordertasks_set.complete()
+            return OrderTaskSerializer(qs, many=True, read_only=True).data
+        except Exception as e:
+            qs = 'fail'
+            return qs
+
+    def get_incompleteTasks(self, obj):
+        try:
+            qs = obj.ordertasks_set.incomplete()
+            return OrderTaskSerializer(qs, many=True, read_only=True).data
+        except Exception as e:
+            qs = 'fail'
             return qs
 
 class TaskDashBoardSerializer(serializers.ModelSerializer):
