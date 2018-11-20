@@ -16,7 +16,7 @@ max_len = 64
 
 class Orders(models.Model):
     isActive = models.BooleanField(default=True)
-    buyer = models.ForeignKey('customer.Customer', "Buyer", blank=True, null=True, to_field='id', default=None)
+    buyer = models.ForeignKey('customer.Customer', name="buyer", blank=True, on_delete=models.SET_NULL, null=True)
     customer_order_number = models.CharField("Buyer Order Number", max_length=100, blank=True, null=True)
     buyer_style_number = models.CharField("Buyer Style Number",
                                           max_length=100, blank=True)
@@ -24,8 +24,7 @@ class Orders(models.Model):
                                        max_length=20, blank=True)
     jp_style_number_test = models.ManyToManyField('inventory.Inventory','+',
                                                   verbose_name='Jp Style', blank=True)
-    factory = models.ForeignKey("factory.Factory", "Factory", blank=True, null=True, to_field='id',
-                                default=None, max_length=100)
+    factory = models.ForeignKey("factory.Factory", name="factory", on_delete=models.SET_NULL, null=True, blank=True)
     factory_ship_date = models.DateTimeField(verbose_name='Ship to Factory Date', blank=True, null=True)
     cost_from_factory = models.FloatField(verbose_name="Factory Cost", blank=True, null=True)
     buyers_price = models.FloatField(verbose_name='Price Buyer Paid', blank=True, null=True)
@@ -57,26 +56,27 @@ class Orders(models.Model):
     #       return reverse('orders:order_details', kwargs={'pk':self.pk})
 
 
-    def get_absolute_url(self):
-        return reverse('orders:order_details', kwargs={'pk': self.pk})
+    #def get_absolute_url(self):
+    #    return reverse('orders:order_details', kwargs={'pk': self.pk})
 
-    def get_update_url(self):
-        return reverse('orders:update_order', kwargs={'pk': self.pk})
+    #def get_update_url(self):
+    #    return reverse('orders:update_order', kwargs={'pk': self.pk})
 
-    def get_customer_options(self):
-        customer = Customer.objects.all()
-        name = customer.values()
-        return name
+    #def get_customer_options(self):
+    #    customer = Customer.objects.all()
+    #    name = customer.values()
+    #    return name
 
-    def get_customer_names(self):
-        names = Customer.objects.values('name').disctinct()
-        return names
+    #def get_customer_names(self):
+    #    names = Customer.objects.values('name').disctinct()
+    #    return names
+    def save(self, *args, **kwargs):
+        return super(Orders, self).save(*args, **kwargs)  #
 
 
 class OrderExpense(models.Model):
 
-    order = models.ForeignKey(Orders, on_delete='CASCADE'
-                              )
+    order = models.ForeignKey(Orders, blank=True, on_delete=models.SET_NULL, null=True)
     totalExpense = models.FloatField(blank=True, null=True)
     expenseItems = JSONField()
 
@@ -108,7 +108,7 @@ class OpenTasksManager(models.Manager):
 class OrderTasks(models.Model):
 
     isActive = models.BooleanField(default=True)
-    order = models.ForeignKey(Orders, on_delete='CASCADE', blank=True, null=True)
+    order = models.ForeignKey(Orders, blank=True, on_delete=models.SET_NULL, null=True)
     set_name = models.CharField(max_length=50, null=True, blank=True)
     todos_group = models.CharField(max_length=1000, null=True, blank=True)
     set_status = models.CharField(max_length=20, blank=True, null=True)

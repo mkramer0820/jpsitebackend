@@ -90,7 +90,7 @@ urlpatterns = [
          FactoryContacListtCreateView.as_view(),
          name='factory-contact-list'
          ),
-    path('api/factory/contacts/<int:id>',
+    path('api/factory/contacts/<int:pk>',
          FactoryContactDetailView.as_view(),
          name='factory-contact-list'
          ),
