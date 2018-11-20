@@ -19,7 +19,8 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.views.static import serve
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
-
+from jet import urls as jeturls
+from jet.dashboard import urls as dashboardurls
 
 from customer.views import CustomerCreateView, CustomerDetailView
 from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD, OrdersDestroyView
@@ -40,9 +41,8 @@ urlpatterns = [
 
 
 
-    url(r'^jet/',
-        include('jet.urls', 'jet')),
-    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
+    path('jet/', include(jeturls, 'jet')),
+    path('jet/dashboard/', include(dashboardurls, 'jet-dashboard')),
     url(r'admin/',
             admin.site.urls,
             name='admin'),
