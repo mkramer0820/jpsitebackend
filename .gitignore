@@ -41,16 +41,13 @@ testem.log
 .DS_Store
 Thumbs.db
 
-customer/migrations/
-factory/migrations/
-orders/migrations/
-home/migrations/
-jet/migrations/
-todos/migrations/
-customer/__pycache__/
-factory/__pycache__/
-orders/__pycache__/
-todos/__pycache__/
+/customer/migrations/
+/factory/migrations/
+/orders/migrations/
+/home/migrations/
+/jet/migrations/
+/todos/migrations/
+
 /jpsiteapi/settings.py
 /static/
 /jpsiteapi/config.py
