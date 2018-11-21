@@ -68,9 +68,7 @@ class Orders(models.Model):
     #    names = Customer.objects.values('name').disctinct()
     #    return names
     def save(self, *args, **kwargs):
-        media = os.path.join(settings.BASE_DIR, 'media', 'sweater-images')
-        print(media)
-        #return super(Orders, self).save(*args, **kwargs)  #
+        return super(Orders, self).save(*args, **kwargs)
 
 
 class OrderExpense(models.Model):
