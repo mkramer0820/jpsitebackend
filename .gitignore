@@ -47,8 +47,20 @@ Thumbs.db
 /home/migrations/
 /jet/migrations/
 /todos/migrations/
+/customer/migrations/__pycache__/
+/factory/migrations/__pycache__/
+/orders/migrations/__pycache__/
+/home/migrations/__pycache__/
+/jet/migrations/__pycache__/
+/todos/migrations/__pycache__/
+/customer/__pycache__/
+/factory/__pycache__/
+/orders/__pycache__/
+/home/__pycache__/
+/jet/__pycache__/
+/todos/__pycache__/
 
-
+/jpsiteapi/settings.py
 /static/
 /jpsiteapi/config.py
 gunicorn.service
