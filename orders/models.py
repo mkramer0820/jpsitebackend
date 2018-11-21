@@ -1,15 +1,12 @@
 from django.db import models
-from django.urls import reverse
-from django.utils.text import slugify
-from six import text_type
-from customer.models import Customer
-from factory.models import Factory
 from django.contrib.postgres.fields import JSONField
-
-from dateutil import parser
+import os
+from django.conf import settings
 # Create your models here.
+
 max_dig = 10000000
 max_len = 64
+
 
 
 
@@ -71,7 +68,9 @@ class Orders(models.Model):
     #    names = Customer.objects.values('name').disctinct()
     #    return names
     def save(self, *args, **kwargs):
-        return super(Orders, self).save(*args, **kwargs)  #
+        media = os.path.join(settings.BASE_DIR, 'media', 'sweater-images')
+        print(media)
+        #return super(Orders, self).save(*args, **kwargs)  #
 
 
 class OrderExpense(models.Model):
