@@ -26,10 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config['key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-#ALLOWED_HOSTS = ['104.248.10.237', '127.0.0.1']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['104.248.10.237', '127.0.0.1']
+#ALLOWED_HOSTS = []
 
 # Application definition
 # 'jet',
@@ -103,8 +103,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jpsite',
-        'USER': 'XBBNQVM',
-        #"USER": 'mkram',
+        'USER': config['dbPass'],
         'PASSWORD': config['dbPass'],
         'HOST': 'localhost',
         'PORT': '5432',
@@ -131,14 +130,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    #'DEFAULT_PERMISSION_CLASSES': (
-    #    'rest_framework.permissions.IsAuthenticated',
-    #),
-    #'DEFAULT_AUTHENTICATION_CLASSES': (
-    #    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    #    'rest_framework.authentication.SessionAuthentication',
-    #    'rest_framework.authentication.BasicAuthentication',
-    #),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
