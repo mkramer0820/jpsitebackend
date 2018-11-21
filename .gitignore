@@ -48,6 +48,7 @@ Thumbs.db
 /jet/migrations/
 /todos/migrations/
 
+
 /jpsiteapi/settings.py
 /static/
 /jpsiteapi/config.py
