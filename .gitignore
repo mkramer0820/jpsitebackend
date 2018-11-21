@@ -49,7 +49,6 @@ Thumbs.db
 /todos/migrations/
 
 
-/jpsiteapi/settings.py
 /static/
 /jpsiteapi/config.py
 gunicorn.service
