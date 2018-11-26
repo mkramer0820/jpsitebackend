@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import JSONField
+from django.contrib.postgres.fields import JSONField, ArrayField
 import os
 from django.conf import settings
 # Create your models here.
@@ -43,6 +43,8 @@ class Orders(models.Model):
     jp_care_instructions = models.TextField(max_length=250, blank=True,
                                             verbose_name='Care Instructions')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
+    sizes = models.ManyToManyField('orders.SweaterSizes', name="Sizes", verbose_name="Sweater Sizes", blank=True,
+                                   related_name='sizes')
     due_date = models.DateTimeField(blank=True, null=True)
  
     def __str__(self):
@@ -69,6 +71,15 @@ class Orders(models.Model):
     #    return names
     def save(self, *args, **kwargs):
         return super(Orders, self).save(*args, **kwargs)
+
+
+class SweaterSizes(models.Model):
+
+    sizeType = models.CharField(name="Size", verbose_name="Size Types", max_length=30, blank=True, null=True)
+    sizes = models.CharField(name="Sizing", verbose_name="Sizes", max_length=50, blank=True, null=True)
+
+    def __str__(self):
+        return self.Size
 
 
 class OrderExpense(models.Model):

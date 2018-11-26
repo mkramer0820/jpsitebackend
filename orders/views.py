@@ -1,13 +1,9 @@
 
-from rest_framework import generics, mixins
 from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from customer.models import Customer
-from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework import status, permissions
 from rest_framework import pagination
 from collections import defaultdict
 from orders.serializers import OrderExpense, OrderExpenseSerializer
@@ -17,11 +13,12 @@ filters
 from orders.filtersets import OrdersFilter, OrderTaskFilter
 from django_filters import rest_framework as filters
 
-from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer
+from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer, \
+                         SweaterSizeSerializer
 from rest_framework import generics
 from metadata.metadata import MyMetaData
 
-from .serializers import Orders, OrderTasks
+from .serializers import Orders, OrderTasks, SweaterSizes
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
     page_size = 5
@@ -48,6 +45,12 @@ http://127.0.0.1:8000/api/orders/paginator/?ordering=id&page=1&page_size=2
 http://127.0.0.1:8000/api/orders/paginator/?ordering=id&buyer=&due_date_after=&due_date_before=2018-12-01&buyer_style_number=&jp_style_number=&isActive=
 http://127.0.0.1:8000/api/orders/paginator/?buyer=&buyer_style_number=&due_date_after=&due_date_before=&isActive=&jp_style_number=&ordering=id&page=&page_size=
 """
+
+
+class SweaterSizeCreateView(generics.ListCreateAPIView):
+
+    queryset = SweaterSizes.objects.all()
+    serializer_class = SweaterSizeSerializer
 
 class OrderExpenseCreateView(generics.ListCreateAPIView):
 

@@ -5,13 +5,13 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-jet = "*"
 djangorestframework = "*"
 pillow = "*"
 six = "*"
 django-cors = "*"
 django-cors-headers = "*"
 django-filter = "*"
+django-grappelli = "*"
 
 [dev-packages]
 

@@ -1,16 +1,19 @@
 from rest_framework import serializers
-from orders.models import Orders, OrderTasks, OrderExpense
+from orders.models import Orders, OrderTasks, OrderExpense, SweaterSizes
 from factory.models import Factory
 from customer.models import Customer
-from factory.serializers import FactoryListSerializer
-from customer.serializers import CustomerSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.response import Response
-from rest_framework import status
-from dateutil import parser
-import six
+
 from rest_framework.fields import ChoiceField
 from rest_framework import serializers
+
+
+class SweaterSizeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = SweaterSizes
+        fields = '__all__'
+
 
 class OrderDeleteSerializer(serializers.ModelSerializer):
 
@@ -48,6 +51,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
+    Sizes = serializers.PrimaryKeyRelatedField(queryset=SweaterSizes.objects.all(), many=True, read_only=False)
+    size = serializers.SerializerMethodField()
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
     orderExpense = serializers.SerializerMethodField()
@@ -59,8 +64,6 @@ class OrderlistSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 2
 
-    def create(self, validated_data):
-        return Orders.objects.create(**validated_data)
 
     def get_tasks(self, obj):
 
@@ -70,6 +73,10 @@ class OrderlistSerializer(serializers.ModelSerializer):
     def get_orderExpense(self, obj):
         qs = OrderExpense.objects.filter(order_id=obj.id).values();
         qs = OrderExpenseSerializer(qs, many=True, read_only=True).data
+        return qs
+
+    def get_size(self, obj):
+        qs = obj.Sizes.values()
         return qs
 
 
