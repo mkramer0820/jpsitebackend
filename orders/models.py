@@ -116,7 +116,7 @@ class OpenTasksManager(models.Manager):
 class OrderTasks(models.Model):
 
     isActive = models.BooleanField(default=True)
-    order = models.ForeignKey(Orders, blank=True, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Orders, blank=True, on_delete=models.CASCADE, null=True)
     set_name = models.CharField(max_length=50, null=True, blank=True)
     todos_group = models.CharField(max_length=1000, null=True, blank=True)
     set_status = models.CharField(max_length=20, blank=True, null=True)

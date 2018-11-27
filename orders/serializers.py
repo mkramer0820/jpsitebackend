@@ -30,15 +30,6 @@ class OrderExpenseSerializer(serializers.ModelSerializer):
         model = OrderExpense
         fields = '__all__'
 
-class OrderTaskSerializer(serializers.ModelSerializer):
-
-
-    tasks = serializers.JSONField
-
-
-    class Meta:
-        model = OrderTasks
-        fields = '__all__'
 
 class OrderlistSerializer(serializers.ModelSerializer):
 
@@ -110,12 +101,27 @@ class OrderlistSerializer(serializers.ModelSerializer):
             qs = 'fail'
             return qs
 
+class OrderTaskSerializer(serializers.ModelSerializer):
+
+
+    buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
+    jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
+    order_due_date = serializers.ReadOnlyField(source='order.due_date')
+
+    tasks = serializers.JSONField
+
+
+    class Meta:
+        model = OrderTasks
+        fields = '__all__'
+
+
 class TaskDashBoardSerializer(serializers.ModelSerializer):
 
     orders = OrderlistSerializer
     buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
     jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
-    jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
+    order_due_date = serializers.ReadOnlyField(source='order.due_date')
     brand = serializers.ReadOnlyField(source='order.brand')
     order_target_date = serializers.ReadOnlyField(source='order.due_date')
    # time_between_target = serializers.SerializerMethodField()
