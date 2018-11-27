@@ -112,6 +112,8 @@ class OrderTaskView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = OrderTasks.objects.all()
     serializer_class = OrderTaskSerializer
+    filter_class = OrderTaskFilter
+
 
 
 
