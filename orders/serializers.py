@@ -107,6 +107,7 @@ class OrderTaskSerializer(serializers.ModelSerializer):
     buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
     jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
     order_due_date = serializers.ReadOnlyField(source='order.due_date')
+    buyer = serializers.ReadOnlyField(source='order.buyer.name')
 
     tasks = serializers.JSONField
 
