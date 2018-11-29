@@ -11,7 +11,7 @@ class MyMetaData(SimpleMetadata):
 
     def get_field_info(self, field):
         field_info = super(MyMetaData, self).get_field_info(field)
-        if isinstance(field, (RelatedField, ManyRelatedField, PrimaryKeyRelatedField)):
+        if isinstance(field, (RelatedField, PrimaryKeyRelatedField)):
             field_info['choices'] = [
                 {
                     'key': choice_value,
@@ -20,7 +20,7 @@ class MyMetaData(SimpleMetadata):
                 for choice_value, choice_name in field.get_choices().items()
             ]
             field_info['type'] = 'option'
-        elif isinstance(field, ChoiceDisplayField):
+        if isinstance(field, ManyRelatedField):
             field_info['choices'] = [
                 {
                     'key': choice_value,
@@ -28,8 +28,7 @@ class MyMetaData(SimpleMetadata):
                 }
                 for choice_value, choice_name in field.get_choices().items()
             ]
-            field_info['type'] = 'choice'
-
+            field_info['type'] = 'many'
         if isinstance(field, FloatField):
 
             field_info['validators'] = 'number'

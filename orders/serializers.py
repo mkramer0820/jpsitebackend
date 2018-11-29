@@ -34,16 +34,20 @@ class OrderExpenseSerializer(serializers.ModelSerializer):
 class OrderlistSerializer(serializers.ModelSerializer):
 
 
-    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), read_only=False, required=False, allow_null=False)
-    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), required=False, allow_null=True)
+    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), read_only=False,
+                                               required=False, allow_null=True )
+    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), read_only=False,
+                                                 required=False, allow_null=True)
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
-    Sizes = serializers.PrimaryKeyRelatedField(queryset=SweaterSizes.objects.all(), many=True, read_only=False)
-    size = serializers.SerializerMethodField()
+    size = serializers.PrimaryKeyRelatedField(queryset=SweaterSizes.objects.all(),
+                                              read_only=False,
+                                              required=False, allow_null=True)
+    sizing = serializers.SerializerMethodField()
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
     orderExpense = serializers.SerializerMethodField()
@@ -62,13 +66,22 @@ class OrderlistSerializer(serializers.ModelSerializer):
         return OrderTaskSerializer(qs, many=True, read_only=True).data
 
     def get_orderExpense(self, obj):
-        qs = OrderExpense.objects.filter(order_id=obj.id).values();
+        qs = OrderExpense.objects.filter(order_id=obj.id).values()
         qs = OrderExpenseSerializer(qs, many=True, read_only=True).data
         return qs
 
-    def get_size(self, obj):
-        qs = obj.Sizes.values()
-        return qs
+    def get_size(self,obj):
+        try:
+            qs = SweaterSizes.objects.filter(orders=obj.id).values()
+            return qs
+        except AttributeError:
+            return None
+    def get_sizing(self, obj):
+        try:
+            qs = SweaterSizes.objects.filter(orders=obj.id).values()
+            return qs
+        except AttributeError:
+            return None
 
 
     def get_factory_set(self, obj):
@@ -100,6 +113,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
         except Exception as e:
             qs = 'fail'
             return qs
+
 
 class OrderTaskSerializer(serializers.ModelSerializer):
 

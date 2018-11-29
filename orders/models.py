@@ -43,8 +43,8 @@ class Orders(models.Model):
     jp_care_instructions = models.TextField(max_length=250, blank=True,
                                             verbose_name='Care Instructions')
     color = models.CharField(max_length=75, blank=True, verbose_name='Color Des.')
-    sizes = models.ManyToManyField('orders.SweaterSizes', name="Sizes", verbose_name="Sweater Sizes", blank=True,
-                                   related_name='sizes')
+    size = models.ForeignKey('orders.SweaterSizes', name="size", verbose_name="sizes",
+                             blank=True, null=True, default=None, on_delete=models.SET_NULL)
     due_date = models.DateTimeField(blank=True, null=True)
  
     def __str__(self):
@@ -75,11 +75,13 @@ class Orders(models.Model):
 
 class SweaterSizes(models.Model):
 
-    sizeType = models.CharField(name="Size", verbose_name="Size Types", max_length=30, blank=True, null=True)
-    sizes = models.CharField(name="Sizing", verbose_name="Sizes", max_length=50, blank=True, null=True)
+    sizeType = models.CharField(name="size_type", verbose_name="Size Types", max_length=30,
+                                blank=True, null=True)
+    sizeDetails = models.CharField(name="size_detail", verbose_name="Size Details", max_length=50,
+                                   blank=True, null=True)
 
     def __str__(self):
-        return self.Size
+        return str(self.size_type)
 
 
 class OrderExpense(models.Model):
