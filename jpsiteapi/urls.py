@@ -27,7 +27,7 @@ from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacLis
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, \
                             SpecDetailView, InventoryListView
 
-from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView
+from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView, OrderChartView
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
     TodosGroupViewSet
 from home.views import index
@@ -153,7 +153,11 @@ urlpatterns = [
          name='dashboard'
          ),
 
-    url(r'/$', index),
+    path('api/orders-chart/',
+         OrderChartView.as_view(),
+         name='order-chart'),
+
+    url(r'$', index),
 
 
 ]

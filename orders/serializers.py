@@ -159,5 +159,18 @@ class TaskDashBoardSerializer(serializers.ModelSerializer):
             return time_between_date
 """
 
+class ChartSerializer(serializers.Serializer):
+
+    data = serializers.SerializerMethodField()
+
+    class Meta:
+
+        model = Orders
+
+    def get_data(self):
+
+        data = Orders.objects.value()
+        return data
+
 
 

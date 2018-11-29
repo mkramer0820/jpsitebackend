@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import JSONField, ArrayField
+from django.db.models import Max
 import os
 from django.conf import settings
 # Create your models here.
@@ -14,7 +15,7 @@ max_len = 64
 class Orders(models.Model):
     isActive = models.BooleanField(default=True)
     buyer = models.ForeignKey('customer.Customer', name="buyer", blank=True, on_delete=models.SET_NULL, null=True)
-    customer_order_number = models.CharField("Buyer Order Number", max_length=100, blank=True, null=True)
+    customer_order_number = models.PositiveIntegerField(name='customer_order_number', verbose_name="Order Number", blank=True, null=True)
     buyer_style_number = models.CharField("Buyer Style Number",
                                           max_length=100, blank=True)
     jp_style_number = models.CharField("Jeanne Pierre Style Number",
@@ -69,8 +70,20 @@ class Orders(models.Model):
     #def get_customer_names(self):
     #    names = Customer.objects.values('name').disctinct()
     #    return names
+
+
+
     def save(self, *args, **kwargs):
-        return super(Orders, self).save(*args, **kwargs)
+        try:
+            buyerOrders = Orders.objects.filter(buyer=self.buyer)
+            max = buyerOrders.aggregate(Max('customer_order_number'))['customer_order_number__max']
+            next = max + 1
+            self.customer_order_number = next
+            return super(Orders, self).save(*args, **kwargs)
+
+        except TypeError:
+            self.customer_order_number = None
+            return super(Orders, self).save(*args, **kwargs)
 
 
 class SweaterSizes(models.Model):

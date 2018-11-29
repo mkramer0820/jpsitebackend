@@ -7,6 +7,13 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework import pagination
 from collections import defaultdict
 from orders.serializers import OrderExpense, OrderExpenseSerializer
+from django.db.models.functions import TruncMonth
+from django.db.models import Sum, Count
+from django.db.models.functions import (
+     ExtractDay, ExtractMonth, ExtractQuarter, ExtractWeek,
+     ExtractWeekDay, ExtractYear,)
+
+
 """
 filters
 """
@@ -143,6 +150,32 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Orders.objects.all()
     serializer_class = OrderlistSerializer
+
+
+
+class OrderChartView(APIView):
+
+
+    def get(self, request, format=None):
+        """
+
+        truncate to month and add to slect list
+        group by month
+        select the count of grouping
+        # (might be redundant, haven't tested) select month and count
+        :param request:
+        :param format:
+        :return:
+        """
+        orders = Orders.objects.values()
+        data=Orders.objects. \
+                .annotate(month=TruncMonth(ExtractMonth('due_date')))\
+                .values('due_date')\
+                .annotate(value=Sum('qty')*Sum('buyers_price'))\
+                #.annotate(jpstyle='jp_style_number')
+
+        return Response(data)
+
 
 
 
