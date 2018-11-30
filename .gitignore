@@ -18,7 +18,8 @@
 .settings/
 *.sublime-workspace
 __pycache__/
-
+*.pyc
+*.pyo
 
 # IDE - VSCode
 .vscode/*
