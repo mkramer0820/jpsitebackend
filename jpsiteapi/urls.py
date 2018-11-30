@@ -41,7 +41,7 @@ urlpatterns = [
 
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
 
-    url(r'^admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     url(r'^media/(?P<path>.*)$',
         serve,

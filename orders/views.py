@@ -168,13 +168,9 @@ class OrderChartView(APIView):
         :return:
         """
         orders = Orders.objects.values()
-        data=Orders.objects. \
-                .annotate(month=TruncMonth(ExtractMonth('due_date')))\
-                .values('due_date')\
-                .annotate(value=Sum('qty')*Sum('buyers_price'))\
-                #.annotate(jpstyle='jp_style_number')
 
-        return Response(data)
+
+        return Response(orders)
 
 
 
