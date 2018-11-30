@@ -40,7 +40,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
+*.pyc
 /customer/migrations/
 /factory/migrations/
 /orders/migrations/
