@@ -1,16 +1,19 @@
 from rest_framework import serializers
-from orders.models import Orders, OrderTasks, OrderExpense
+from orders.models import Orders, OrderTasks, OrderExpense, SweaterSizes
 from factory.models import Factory
 from customer.models import Customer
-from factory.serializers import FactoryListSerializer
-from customer.serializers import CustomerSerializer
-from rest_framework.parsers import MultiPartParser, FormParser
-from rest_framework.response import Response
-from rest_framework import status
-from dateutil import parser
-import six
+
 from rest_framework.fields import ChoiceField
 from rest_framework import serializers
+
+
+class SweaterSizeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+
+        model = SweaterSizes
+        fields = '__all__'
+
 
 class OrderDeleteSerializer(serializers.ModelSerializer):
 
@@ -27,27 +30,24 @@ class OrderExpenseSerializer(serializers.ModelSerializer):
         model = OrderExpense
         fields = '__all__'
 
-class OrderTaskSerializer(serializers.ModelSerializer):
-
-
-    tasks = serializers.JSONField
-
-
-    class Meta:
-        model = OrderTasks
-        fields = '__all__'
 
 class OrderlistSerializer(serializers.ModelSerializer):
 
 
-    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), read_only=False, required=False, allow_null=False)
-    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), required=False, allow_null=True)
+    buyer = serializers.PrimaryKeyRelatedField(queryset=Customer.objects.all(), read_only=False,
+                                               required=False, allow_null=True )
+    factory = serializers.PrimaryKeyRelatedField(queryset=Factory.objects.all(), read_only=False,
+                                                 required=False, allow_null=True)
     buyer_name = serializers.ReadOnlyField(source='buyer.name')
     factory_name = serializers.ReadOnlyField(source='factory.name')
     tasks = serializers.SerializerMethodField()
     due_date = serializers.DateTimeField(required=False)
     factory_ship_date = serializers.DateTimeField(required=False)
     sweater_image = serializers.ImageField(required=False)
+    size = serializers.PrimaryKeyRelatedField(queryset=SweaterSizes.objects.all(),
+                                              read_only=False,
+                                              required=False, allow_null=True)
+    sizing = serializers.SerializerMethodField()
     factory_set = serializers.SerializerMethodField()
     customer_set = serializers.SerializerMethodField()
     orderExpense = serializers.SerializerMethodField()
@@ -59,8 +59,6 @@ class OrderlistSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 2
 
-    def create(self, validated_data):
-        return Orders.objects.create(**validated_data)
 
     def get_tasks(self, obj):
 
@@ -68,9 +66,22 @@ class OrderlistSerializer(serializers.ModelSerializer):
         return OrderTaskSerializer(qs, many=True, read_only=True).data
 
     def get_orderExpense(self, obj):
-        qs = OrderExpense.objects.filter(order_id=obj.id).values();
+        qs = OrderExpense.objects.filter(order_id=obj.id).values()
         qs = OrderExpenseSerializer(qs, many=True, read_only=True).data
         return qs
+
+    def get_size(self,obj):
+        try:
+            qs = SweaterSizes.objects.filter(orders=obj.id).values()
+            return qs
+        except AttributeError:
+            return None
+    def get_sizing(self, obj):
+        try:
+            qs = SweaterSizes.objects.filter(orders=obj.id).values()
+            return qs
+        except AttributeError:
+            return None
 
 
     def get_factory_set(self, obj):
@@ -103,12 +114,29 @@ class OrderlistSerializer(serializers.ModelSerializer):
             qs = 'fail'
             return qs
 
+
+class OrderTaskSerializer(serializers.ModelSerializer):
+
+
+    buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
+    jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
+    order_due_date = serializers.ReadOnlyField(source='order.due_date')
+    buyer = serializers.ReadOnlyField(source='order.buyer.name')
+
+    tasks = serializers.JSONField
+
+
+    class Meta:
+        model = OrderTasks
+        fields = '__all__'
+
+
 class TaskDashBoardSerializer(serializers.ModelSerializer):
 
     orders = OrderlistSerializer
     buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
     jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
-    jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
+    order_due_date = serializers.ReadOnlyField(source='order.due_date')
     brand = serializers.ReadOnlyField(source='order.brand')
     order_target_date = serializers.ReadOnlyField(source='order.due_date')
    # time_between_target = serializers.SerializerMethodField()
@@ -130,6 +158,19 @@ class TaskDashBoardSerializer(serializers.ModelSerializer):
 
             return time_between_date
 """
+
+class ChartSerializer(serializers.Serializer):
+
+    data = serializers.SerializerMethodField()
+
+    class Meta:
+
+        model = Orders
+
+    def get_data(self):
+
+        data = Orders.objects.value()
+        return data
 
 
 

@@ -18,7 +18,14 @@ class OrdersFilter(filters.FilterSet):
 
 class OrderTaskFilter(filters.FilterSet):
 
-    complete = filters.CharFilter(field_name = 'set_status')
+    set_name = filters.CharFilter(field_name='set_name')
+    complete = filters.CharFilter(field_name='set_status')
+    todos = filters.CharFilter(field_name='todos')
+
+    class Meta:
+
+        model = OrderTasks
+        fields = ['set_status']
 
 
 """

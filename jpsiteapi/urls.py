@@ -19,18 +19,18 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.views.static import serve
 from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
-from jet import urls as jeturls
-from jet.dashboard import urls as dashboardurls
 
 from customer.views import CustomerCreateView, CustomerDetailView
-from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD, OrdersDestroyView
+from orders.views import OrderCreateView, OrderDetailView, OrderExpenseCreateView, OrderExpenseRUD, OrdersDestroyView, \
+                         SweaterSizeCreateView
 from factory.views import FactoryCreateView, FactoryDetailView, FactoryContacListtCreateView, FactoryContactDetailView
 from inventory.views import InventoryListCreateView, SpecListCreateView,InventoryDetailView, \
                             SpecDetailView, InventoryListView
 
-from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView
+from orders.views import OrdersTest, OrderTaskView, OrderTaskRUD, OrderListFilterView, TaskDashBoardView, OrderChartView
 from todos.views import TodoCreateView, TodoGroupCreateView,TodosRUD, TodoGroupCreateRUDView, \
     TodosGroupViewSet
+from home.views import index
 
 from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
@@ -39,13 +39,9 @@ from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
 urlpatterns = [
 
+    path('grappelli/', include('grappelli.urls')),  # grappelli URLS
 
-
-    path('jet/', include(jeturls, 'jet')),
-    path('jet/dashboard/', include(dashboardurls, 'jet-dashboard')),
-    url(r'admin/',
-            admin.site.urls,
-            name='admin'),
+    url(r'^admin/', admin.site.urls),
 
     url(r'^media/(?P<path>.*)$',
         serve,
@@ -132,7 +128,8 @@ urlpatterns = [
     path('api/order-expense/<int:pk>/',
          OrderExpenseRUD.as_view(),
          name='order-epxense-rud'),
-
+    path('api/sweater-sizes/',
+         SweaterSizeCreateView.as_view(), name='sweater-sizes'),
 
     path('api/inventory/',
          InventoryListCreateView.as_view(),
@@ -155,6 +152,12 @@ urlpatterns = [
          TaskDashBoardView.as_view(),
          name='dashboard'
          ),
+
+    path('api/orders-chart/',
+         OrderChartView.as_view(),
+         name='order-chart'),
+
+    url(r'$', index),
 
 
 ]
