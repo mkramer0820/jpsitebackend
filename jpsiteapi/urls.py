@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url, include
+
 from django.urls import path
 from django.conf.urls.static import static
 from django.views.static import serve
@@ -34,14 +35,16 @@ from home.views import index
 
 from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
-
+from home.views import index
+from django.urls import path, re_path
 
 
 urlpatterns = [
 
     path('grappelli/', include('grappelli.urls')),  # grappelli URLS
 
-    url(r'^admin/', admin.site.urls),
+    
+    path('api/admin/', admin.site.urls),
 
     url(r'^media/(?P<path>.*)$',
         serve,
@@ -153,6 +156,7 @@ urlpatterns = [
          name='dashboard'
          ),
 
+    url(r'$', index),
     path('api/orders-chart/',
          OrderChartView.as_view(),
          name='order-chart'),

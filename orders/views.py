@@ -58,11 +58,15 @@ class SweaterSizeCreateView(generics.ListCreateAPIView):
 
     queryset = SweaterSizes.objects.all()
     serializer_class = SweaterSizeSerializer
+    metadata_class = MyMetaData
+
 
 class OrderExpenseCreateView(generics.ListCreateAPIView):
 
     queryset = OrderExpense.objects.all()
     serializer_class = OrderExpenseSerializer
+    metadata_class = MyMetaData
+
 
 class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderExpense.objects.all()
@@ -168,13 +172,9 @@ class OrderChartView(APIView):
         :return:
         """
         orders = Orders.objects.values()
-        data=Orders.objects. \
-                .annotate(month=TruncMonth(ExtractMonth('due_date')))\
-                .values('due_date')\
-                .annotate(value=Sum('qty')*Sum('buyers_price'))\
-                #.annotate(jpstyle='jp_style_number')
 
-        return Response(data)
+
+        return Response(orders)
 
 
 
