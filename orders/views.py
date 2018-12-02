@@ -1,27 +1,31 @@
 
-from rest_framework import generics, mixins
 from rest_framework.views import APIView
-from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.response import Response
 from customer.models import Customer
-from django_filters import rest_framework as filters
 from rest_framework import viewsets
 from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework import status, permissions
 from rest_framework import pagination
 from collections import defaultdict
 from orders.serializers import OrderExpense, OrderExpenseSerializer
+from django.db.models.functions import TruncMonth
+from django.db.models import Sum, Count
+from django.db.models.functions import (
+     ExtractDay, ExtractMonth, ExtractQuarter, ExtractWeek,
+     ExtractWeekDay, ExtractYear,)
+
+
 """
 filters
 """
 from orders.filtersets import OrdersFilter, OrderTaskFilter
 from django_filters import rest_framework as filters
 
-from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer
+from .serializers import OrderlistSerializer, OrderTaskSerializer, TaskDashBoardSerializer, OrderDeleteSerializer, \
+                         SweaterSizeSerializer
 from rest_framework import generics
 from metadata.metadata import MyMetaData
 
-from .serializers import Orders, OrderTasks
+from .serializers import Orders, OrderTasks, SweaterSizes
 
 class StandardResultsSetPagination(pagination.PageNumberPagination):
     page_size = 5
@@ -49,10 +53,20 @@ http://127.0.0.1:8000/api/orders/paginator/?ordering=id&buyer=&due_date_after=&d
 http://127.0.0.1:8000/api/orders/paginator/?buyer=&buyer_style_number=&due_date_after=&due_date_before=&isActive=&jp_style_number=&ordering=id&page=&page_size=
 """
 
+
+class SweaterSizeCreateView(generics.ListCreateAPIView):
+
+    queryset = SweaterSizes.objects.all()
+    serializer_class = SweaterSizeSerializer
+    metadata_class = MyMetaData
+
+
 class OrderExpenseCreateView(generics.ListCreateAPIView):
 
     queryset = OrderExpense.objects.all()
     serializer_class = OrderExpenseSerializer
+    metadata_class = MyMetaData
+
 
 class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderExpense.objects.all()
@@ -109,6 +123,8 @@ class OrderTaskView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
     queryset = OrderTasks.objects.all()
     serializer_class = OrderTaskSerializer
+    filter_class = OrderTaskFilter
+
 
 
 
@@ -138,6 +154,28 @@ class OrderDetailView(generics.RetrieveUpdateDestroyAPIView):
 
     queryset = Orders.objects.all()
     serializer_class = OrderlistSerializer
+
+
+
+class OrderChartView(APIView):
+
+
+    def get(self, request, format=None):
+        """
+
+        truncate to month and add to slect list
+        group by month
+        select the count of grouping
+        # (might be redundant, haven't tested) select month and count
+        :param request:
+        :param format:
+        :return:
+        """
+        orders = Orders.objects.values()
+
+
+        return Response(orders)
+
 
 
 
