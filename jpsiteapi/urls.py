@@ -35,7 +35,7 @@ from home.views import index
 
 from jpsiteapi.settings import MEDIA_URL, MEDIA_ROOT
 
-from home.views import index
+
 from django.urls import path, re_path
 
 
@@ -161,7 +161,7 @@ urlpatterns = [
          OrderChartView.as_view(),
          name='order-chart'),
 
-    url(r'$', index),
+  
 
 
 ]

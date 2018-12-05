@@ -1,6 +1,16 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
- {% block content %} {% endblock content %}
+ {% block content %} 
 
+{% verbatim %}
 
+  <app-root></app-root>
+{% endverbatim %}
+            {% block js %}
+    <script  src="{% static 'main.js' %}"></script>
+    <script  src="{% static 'polyfills.js' %}"></script>
+    <script  src="{% static 'runtime.js' %}"></script>
+    <script  src="https://ajax.googleapis.com/ajax/libs/hammerjs/2.0.8/hammer.min.js"></script>
+            {% endblock js %}
+{% endblock content %}
