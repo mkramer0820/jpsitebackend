@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config['key']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 if DEBUG == False:
     ALLOWED_HOSTS = ['104.248.10.237', '209.122.121.128']
@@ -211,15 +211,15 @@ STATIC_URL = '/static/'
 
 
 
-#CORS_ORIGIN_WHITELIST = (
-#    'localhost:8000',
-#    '127.0.0.1:8000',
-#    'localhost:4200',
-#    'localhost:4300',
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    '127.0.0.1:8000',
+    'localhost:4200',
+    'localhost:4300',
 
-#    '209.122.121.128'
+    '209.122.121.128'
 
-#)
+)
 
 # web accessible folder
 """
