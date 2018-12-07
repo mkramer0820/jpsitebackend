@@ -58,11 +58,15 @@ class SweaterSizeCreateView(generics.ListCreateAPIView):
 
     queryset = SweaterSizes.objects.all()
     serializer_class = SweaterSizeSerializer
+    metadata_class = MyMetaData
+
 
 class OrderExpenseCreateView(generics.ListCreateAPIView):
 
     queryset = OrderExpense.objects.all()
     serializer_class = OrderExpenseSerializer
+    metadata_class = MyMetaData
+
 
 class OrderExpenseRUD(generics.RetrieveUpdateDestroyAPIView):
     queryset = OrderExpense.objects.all()

@@ -41,6 +41,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+*.pyc
+*.pyoy
 
 /customer/migrations/
 /factory/migrations/

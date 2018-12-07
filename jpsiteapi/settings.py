@@ -28,20 +28,16 @@ SECRET_KEY = config['key']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['104.248.10.237', '127.0.0.1']
-#ALLOWED_HOSTS = []
+if DEBUG == False:
+    ALLOWED_HOSTS = ['104.248.10.237', '209.122.121.128']
+else:
+    ALLOWED_HOSTS=[]
 
 # Application definition
 # 'jet',
 # 'jet.dashboard',
 INSTALLED_APPS = [
     'grappelli',
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
     'rest_framework_jwt',
     'factory',
     'home',
@@ -52,7 +48,13 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_redis',
     'inventory',
-    'django_filters'
+    'django_filters',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -90,14 +92,6 @@ WSGI_APPLICATION = 'jpsiteapi.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
-"""
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -129,14 +123,14 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    #'DEFAULT_PERMISSION_CLASSES': (
-    #    'rest_framework.permissions.IsAuthenticated',
-    #),
-    #'DEFAULT_AUTHENTICATION_CLASSES': (
-    #    'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    #    'rest_framework.authentication.SessionAuthentication',
-    #    'rest_framework.authentication.BasicAuthentication',
-    #),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
@@ -179,21 +173,8 @@ JWT_AUTH = {
 
 }
 
-
-
-"""
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        }
-    }
-}
-"""
-SESSION_ENGINE = "django.contrib.sessions.backends.cache"
-SESSION_CACHE_ALIAS = "default"
+#SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+#SESSION_CACHE_ALIAS = "default"
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -228,13 +209,18 @@ STATIC_URL = '/static/'
 
 
 
+
+
 CORS_ORIGIN_WHITELIST = (
-    'hostname.example.com',
     'localhost:8000',
     '127.0.0.1:8000',
     'localhost:4200',
+    'localhost:4300',
+
+    '209.122.121.128'
+
 )
-#CORS_ORIGIN_ALLOW_ALL = True
+
 # web accessible folder
 """
 STATIC_ROOT = '/home/your_name/www/mealmate/static/'
