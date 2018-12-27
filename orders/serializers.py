@@ -6,6 +6,14 @@ from customer.models import Customer
 from rest_framework.fields import ChoiceField
 from rest_framework import serializers
 
+def create_set(qs, add):
+    try:
+        #data = {}
+        for k, v in qs[0].items():
+            data[add + k] = v
+        return data
+    except Exception:
+        return None
 
 class SweaterSizeSerializer(serializers.ModelSerializer):
 
@@ -56,7 +64,7 @@ class OrderlistSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orders
-        fields = '__all__'
+        exclude = ['jp_style_number_test']
         depth = 2
 
 
@@ -73,12 +81,13 @@ class OrderlistSerializer(serializers.ModelSerializer):
     def get_size(self,obj):
         try:
             qs = SweaterSizes.objects.filter(orders=obj.id).values()
-            return qs
         except AttributeError:
             return None
+
     def get_sizing(self, obj):
         try:
             qs = SweaterSizes.objects.filter(orders=obj.id).values()
+            #data = create_set(qs, 'sizing_')
             return qs
         except AttributeError:
             return None
@@ -87,6 +96,8 @@ class OrderlistSerializer(serializers.ModelSerializer):
     def get_factory_set(self, obj):
         try:
             qs = Factory.objects.filter(id=obj.factory.id).values()
+            #print(qs[0])
+            #data = create_set(qs, 'factory_')
             return qs
         except AttributeError:
             qs = ''
@@ -94,10 +105,12 @@ class OrderlistSerializer(serializers.ModelSerializer):
     def get_customer_set(self, obj):
         try:
             qs = Customer.objects.filter(id=obj.buyer.id).values()
+            #data = create_set(qs, 'cust_')
             return qs
         except AttributeError:
             qs = ''
             return qs
+
     def get_completeTasks(self, obj):
         try:
             qs = obj.ordertasks_set.complete()
@@ -135,7 +148,7 @@ class TaskDashBoardSerializer(serializers.ModelSerializer):
 
     orders = OrderlistSerializer
     buyer_style_number = serializers.ReadOnlyField(source='order.buyer_style_number')
-    jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
+    #jp_style_number = serializers.ReadOnlyField(source='order.jp_style_number')
     order_due_date = serializers.ReadOnlyField(source='order.due_date')
     brand = serializers.ReadOnlyField(source='order.brand')
     order_target_date = serializers.ReadOnlyField(source='order.due_date')
@@ -144,8 +157,7 @@ class TaskDashBoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderTasks
-        fields = '__all__'
-
+        exclude = ['jp_style_number_test']
 """        
         return OrderTaskSerializer(qs, many=True, read_only=True).data
 
@@ -161,7 +173,7 @@ class TaskDashBoardSerializer(serializers.ModelSerializer):
 
 class ChartSerializer(serializers.Serializer):
 
-    data = serializers.SerializerMethodField()
+    #data = serializers.SerializerMethodField()
 
     class Meta:
 
@@ -169,7 +181,7 @@ class ChartSerializer(serializers.Serializer):
 
     def get_data(self):
 
-        data = Orders.objects.value()
+        #data = Orders.objects.value()
         return data
 
 
