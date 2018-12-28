@@ -14,8 +14,11 @@ class FactoryContactSerializer(serializers.ModelSerializer):
 
 class FactoryListSerializer(serializers.ModelSerializer):
 
-    contacts = serializers.SerializerMethodField()
+    #contacts = serializers.SerializerMethodField()
+    contact = serializers.ReadOnlyField(source='contact_name.first_name')
+
     contact_name = serializers.PrimaryKeyRelatedField(queryset=FactoryContact.objects.all(), read_only=False, required=False, allow_null=True)
+    
 
 
     class Meta:
@@ -24,9 +27,9 @@ class FactoryListSerializer(serializers.ModelSerializer):
         #fields = '__all__'
         exclude = ['createdOn']
 
-    def get_contacts(self, obj):
-        qs = obj.contact_name
-        return FactoryContactSerializer(qs).data
+    #def get_contacts(self, obj):
+    #    qs = obj.contact_name
+    #    return FactoryContactSerializer(qs).data
 
 
 
